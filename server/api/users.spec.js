@@ -29,4 +29,18 @@ describe('User routes', () => {
       expect(res.body[0].email).to.be.equal(codysEmail)
     })
   }) // end describe('/api/users')
+  describe('Express API', () => {
+    const { findAll: userFindAll } = User;
+    beforeEach(() => {
+      User.findAll = sinon.spy(() => Promise.resolve(users));
+    });
+    afterEach(() => {
+      User.findAll = userFindAll;
+    });
+    it('GET /api/users responds with all users', async () => {
+      const response = await agent.get('/api/users').expect(200);
+      expect(response.body).to.deep.equal(users);
+      expect(User.findAll.calledOnce).to.be.equal(true);
+    });
+  });
 }) // end describe('User routes')
