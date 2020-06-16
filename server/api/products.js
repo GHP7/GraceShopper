@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Product, User } = require('../db/models')
+const {Product, User} = require('../db/models')
 module.exports = router
 
 // delete selected product by ID
@@ -10,7 +10,7 @@ router.delete('/:productId', async (req, res, next) => {
         id: req.params.productId
       }
     })
-    selectedProduct.destroy();
+    selectedProduct.destroy()
     res.json(`${selectedProduct} has been deleted.`)
   } catch (err) {
     next(err)
@@ -18,9 +18,9 @@ router.delete('/:productId', async (req, res, next) => {
 })
 
 //create new product
-router.put('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const { name, description, price, itemsInStock, imageURL } = req.body
+    const {name, description, price, itemsInStock, imageURL} = req.body
     const newProduct = await Product.create({
       name,
       description,
@@ -38,19 +38,21 @@ router.put('/', async (req, res, next) => {
 router.get('/:userId', async (req, res, next) => {
   try {
     const productsPurchasedByUser = await Product.findAll({
-      include: [{
-        model: User,
-        where: {
-          id: req.params.userId
+      include: [
+        {
+          model: User,
+          as: 'user',
+          where: {
+            id: req.params.userId
+          }
         }
-      }]
+      ]
     })
     res.json(productsPurchasedByUser)
   } catch (err) {
     next(err)
   }
 })
-
 
 //display selected product by ID
 router.get('/:productId', async (req, res, next) => {
@@ -69,8 +71,7 @@ router.get('/:productId', async (req, res, next) => {
 //display all products
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({
-    })
+    const products = await Product.findAll({})
     res.json(products)
   } catch (err) {
     next(err)
