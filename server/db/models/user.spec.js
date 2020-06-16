@@ -29,4 +29,22 @@ describe('User model', () => {
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
+  it('email cannot be null', async () => {
+    const blankUser = User.build();
+    try {
+      await blankUser.validate();
+      throw Error('validation should have failed without email');
+    } catch (err) {
+      expect(err.message).to.contain('email cannot be null');
+    }
+  });
+  it('email cannot be empty', async () => {
+    const emptyEmailUser = User.build({ email: '' });
+    try {
+      await emptyEmailUser.validate();
+      throw Error('validation should have failed with empty email');
+    } catch (err) {
+      expect(err.message).to.contain('Validation notEmpty on email failed');
+    }
+  });
 }) // end describe('User model')
