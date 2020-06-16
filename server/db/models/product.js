@@ -12,17 +12,16 @@ const User = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10,2),
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false
   },
   itemsInStock: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.INTEGER
   },
   imageURL: {
     type: Sequelize.STRING,
     allowNull: false
   }
-
 })
 
 module.exports = User
