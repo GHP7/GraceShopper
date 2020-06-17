@@ -1,7 +1,7 @@
 const {expect} = require('chai')
-const {db} = require('../db')
+const {db} = require('../db.js')
 const seed = require('../../../seed/seed')
-const {User, Product} = require('../db')
+const {User, Product} = require('../models')
 
 describe('Tier One: Product >-< User Association', () => {
   before(() => db.sync({force: true}))
