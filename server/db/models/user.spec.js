@@ -1,7 +1,7 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../index')
+const db = require('../db')
 const User = db.model('user')
 
 describe('User model', () => {
@@ -30,21 +30,21 @@ describe('User model', () => {
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
   it('email cannot be null', async () => {
-    const blankUser = User.build();
+    const blankUser = User.build()
     try {
-      await blankUser.validate();
-      throw Error('validation should have failed without email');
+      await blankUser.validate()
+      throw Error('validation should have failed without email')
     } catch (err) {
-      expect(err.message).to.contain('email cannot be null');
+      expect(err.message).to.contain('email cannot be null')
     }
-  });
+  })
   it('email cannot be empty', async () => {
-    const emptyEmailUser = User.build({ email: '' });
+    const emptyEmailUser = User.build({email: ''})
     try {
-      await emptyEmailUser.validate();
-      throw Error('validation should have failed with empty email');
+      await emptyEmailUser.validate()
+      throw Error('validation should have failed with empty email')
     } catch (err) {
-      expect(err.message).to.contain('Validation notEmpty on email failed');
+      expect(err.message).to.contain('Validation notEmpty on email failed')
     }
-  });
+  })
 }) // end describe('User model')
