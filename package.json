@@ -22,11 +22,6 @@
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx}": [
       "prettier --write",
@@ -46,6 +41,7 @@
     "connect-session-sequelize": "^6.1.1",
     "express": "^4.16.4",
     "express-session": "^1.17.1",
+    "faker": "^4.1.0",
     "history": "^4.10.1",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
