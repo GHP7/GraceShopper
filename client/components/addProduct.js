@@ -20,7 +20,7 @@ class AddProduct{
     }
   }
 
-  // sends new state (new state set changeHandler method) to our database via the express POST route. Then, current state resets.
+  // sends new state (new state set in changeHandler method) to our database via the express POST route. Then, current state resets.
   submitHandler(event) {
     event.preventDefault();
     axios.post('/api/products', this.state);
@@ -44,7 +44,7 @@ class AddProduct{
           <input type = 'text' name = {this.state.description} onChange = {this.changeHandler}/>
           <label>Price:</label><br />
           <input type = 'number' name = {this.state.price} onChange = {this.changeHandler}/>
-          <label>items in Stock:</label><br />
+          <label>Items in Stock:</label><br />
           <input type = 'number' name = {this.state.itemsInStock} onChange = {this.changeHandler}/>
           <label>Image URL:</label><br />
           <input type= 'text' name = {this.state.imageURL} onChange = {this.changeHandler}/>
