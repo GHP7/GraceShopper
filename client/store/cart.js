@@ -42,6 +42,19 @@ localStorage.getItem('cart')
   ? (currentCart = JSON.parse(localStorage.getItem('cart')))
   : (currentCart = [])
 
+// Thunks
+export const getCart = () => async dispatch => {
+  // const {data} = await axios.get('/api/cart')
+  dispatch(getCart(data))
+}
+
+export const clearCart = () => async dispatch => {
+  const {data} = await axios.post('/api/cart')
+  dispatch(clearCart(data))
+}
+
+// *** REMINDER: FINISH WRITING REMAINDER OF THUNKS
+
 // REDUCIN'
 
 export default function(state = initialCart, action) {
@@ -52,7 +65,7 @@ export default function(state = initialCart, action) {
 
     case CLEAR_CART:
       localStorage.setItem('cart', [])
-      return []
+      return { ...state, status: 'empty', items: [], subTotal: 0 }
 
     case ADD_TO_CART:
       productId = state.findIndex(element => element.id === action.product.id)
