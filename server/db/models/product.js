@@ -2,7 +2,7 @@ const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const User = db.define('product', {
+const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
@@ -12,7 +12,7 @@ const User = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   itemsInStock: {
@@ -24,4 +24,4 @@ const User = db.define('product', {
   }
 })
 
-module.exports = User
+module.exports = Product
