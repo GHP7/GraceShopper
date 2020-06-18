@@ -63,9 +63,11 @@ const mapDispatch = dispatch => {
     updateProduct: (productId, updateInfo) =>
       dispatch(updateProduct(productId, updateInfo)),
 
+
     // completeProduct: productId => dispatch(completeProduct(productId)),
 
     // clearProduct: () => dispatch(clearProduct())
+
   }
 }
 
