@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts, addProduct, deleteProduct} from '../redux/products'
+import {fetchProducts, addProduct, deleteProduct} from '../store/product'
 import {Link} from 'react-router-dom'
 import AddProduct from './AddProduct'
 
