@@ -1,5 +1,5 @@
 // Destructure variables here for the relevant models from the server
-// const { User, Product } = require(path name)
+const { User, Product } = require('../server/db')
 
 // Faker library
 var faker = require('faker')
@@ -8,14 +8,14 @@ const seed = async () => {
   try {
     // User section
     // Random user variables
-    let randomName = faker.name.findName()
+    // let randomName = faker.name.findName()
     let randomEmail = faker.internet.email()
     let randomPassword = faker.internet.alphaNumeric()
 
     // Dummy user data
     for (let i = 0; i < 1000; i++) {
-      User.create({
-        name: randomName,
+      await User.create({
+        // name: randomName,
         email: randomEmail,
         password: randomPassword
       })
@@ -33,7 +33,7 @@ const seed = async () => {
 
     // Dummy product data
     for (let i = 0; i < 5000; i++) {
-      Product.create({
+      await Product.create({
         name: randomProductName,
         price: randomPrice,
         description: randomDescription,
@@ -42,14 +42,14 @@ const seed = async () => {
       })
     }
   } catch (err) {
-    next(err)
+    console.log('seeding failed!')
   }
 }
 
 // Hard coded seed data in event faker doesn't work
 // const seed = async () => {
 //     try {
-
+//       await db.sync({force: true})
 //         // Individual product data listed below
 //             // Villager amiibo cards
 //         const raymond = await Product.create({
