@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 
-class AddProduct {
+class AddProduct extends React.Component {
   constructor() {
+    super()
     this.state = {
       name: '',
       description: '',

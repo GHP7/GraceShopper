@@ -4,9 +4,9 @@ import {Link} from 'react-router-dom'
 import {
   fetchSingleProduct,
   updateProduct,
-  completeProduct,
-  clearProduct
-} from '../store/products'
+  // completeProduct,
+  // clearProduct
+} from '../store/product'
 import AddProduct from './AddProduct'
 
 export class SingleProduct extends React.Component {
@@ -63,9 +63,11 @@ const mapDispatch = dispatch => {
     updateProduct: (productId, updateInfo) =>
       dispatch(updateProduct(productId, updateInfo)),
 
-    completeProduct: productId => dispatch(completeProduct(productId)),
 
-    clearProduct: () => dispatch(clearProduct())
+    // completeProduct: productId => dispatch(completeProduct(productId)),
+
+    // clearProduct: () => dispatch(clearProduct())
+
   }
 }
 

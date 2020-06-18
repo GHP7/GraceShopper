@@ -1,18 +1,51 @@
 'use strict'
-
+var faker = require('faker')
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Product} = require('../server/db/models')
 
 async function seed() {
-  await db.sync({force: true})
+  // await db.sync({force: true})
   console.log('db synced!')
+  try {
+    await db.sync({force: true})
+    // User section
+    // Random user variables
+    // let randomName = faker.name.findName()
+    let randomPassword = faker.internet.password()
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+    // Dummy user data
+    for (let i = 0; i < 100; i++) {
+      await User.create({
+        // name: randomName,
+        email: faker.internet.email(),
+        password: randomPassword
+      })
+    }
 
-  console.log(`seeded ${users.length} users`)
+    // ************************************* //
+
+    // Product section
+    // Random product variables
+    // let randomProductName = faker.random.word()
+    // let randomPrice = faker.random.number()
+    // let randomDescription = faker.random.words()
+    // let randomStock = faker.random.number()
+    // let randomImage = faker.image.imageUrl()
+
+    // Dummy product data
+    for (let i = 0; i < 500; i++) {
+      await Product.create({
+        // name: randomProductName,
+        name: faker.random.words(),
+        price: faker.random.number(),
+        description: faker.random.words(),
+        itemsInStock: faker.random.number(),
+        imageURL: faker.image.imageUrl()
+      })
+    }
+  } catch (err) {
+    console.log(err)
+  }
   console.log(`seeded successfully`)
 }
 

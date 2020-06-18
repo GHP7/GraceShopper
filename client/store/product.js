@@ -6,6 +6,7 @@ const GOT_ALL_PRODUCTS = 'GOT_ALL_PRODUCTS'
 const REMOVE_SINGLE_PRODUCT = 'REMOVE_SINGLE_PRODUCT'
 const GOT_SINGLE_PRODUCT = 'GOT_SINGLE_PRODUCT'
 const UPDATED_QUANTITY = 'UPDATED_QUANTITY'
+const UPDATED_PRODUCT = 'UPDATED_PRODUCT'
 
 // INITIAL STATE
 // All Products will be an array of objects.
@@ -36,20 +37,35 @@ export const removeSingleProduct = () => ({
   type: REMOVE_SINGLE_PRODUCT
 })
 
+export const updatedProduct = product => ({
+  type: UPDATED_PRODUCT,
+  product
+})
+
 export const updatedQuantity = product => ({
   type: UPDATED_QUANTITY,
   product
 })
 
 // THUNK CREATORS
-export const getAllProducts = () => async dispatch => {
+export const fetchProducts = () => async dispatch => {
   const {data} = await axios.get('/api/products')
   dispatch(gotAllProducts(data))
 }
 
-export const getSingleProduct = id => async dispatch => {
-  const {data} = await axios.get(`/api/candies/${id}`)
+export const fetchSingleProduct = id => async dispatch => {
+  const {data} = await axios.get(`/api/products/${id}`)
   dispatch(gotSingleProduct(data))
+}
+
+export const addProduct = newProduct => async dispatch => {
+  const {data} = await axios.post('/api/products/', newProduct)
+  dispatch(gotSingleProduct(data))
+}
+
+export const updateProduct = (id, newProduct) => async dispatch => {
+  const {data} = await axios.put(`/api/products/${id}/`, newProduct)
+  dispatch(updatedQuantity(data))
 }
 
 export const increaseQuantity = id => async dispatch => {
@@ -62,6 +78,11 @@ export const decreaseQuantity = id => async dispatch => {
   dispatch(updatedQuantity(data))
 }
 
+export const deleteProduct = id => async dispatch => {
+  const {data} = await axios.delete(`/api/products/${id}`)
+  dispatch(removeSingleProduct(data))
+}
+
 // REDUCER
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -69,8 +90,6 @@ const productReducer = (state = initialState, action) => {
       return {...state, allProducts: action.products}
     case GOT_SINGLE_PRODUCT:
       return {...state, singleProduct: action.product}
-    case REMOVE_SINGLE_PRODUCT:
-      return singleProduct
     case UPDATED_QUANTITY:
       return {...state, singleProduct: action.product}
     default:

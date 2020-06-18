@@ -5,7 +5,7 @@ module.exports = router
 // delete selected product by ID
 router.delete('/:productId', async (req, res, next) => {
   try {
-    const selectedProduct = await Product.findByPk({
+    const selectedProduct = await Product.findAll({
       where: {
         id: req.params.productId
       }
@@ -35,7 +35,7 @@ router.post('/', async (req, res, next) => {
 })
 
 //show all products associated with selected user
-router.get('/:userId', async (req, res, next) => {
+router.get('/productsByUser/:userId', async (req, res, next) => {
   try {
     const productsPurchasedByUser = await Product.findAll({
       include: [
@@ -57,7 +57,7 @@ router.get('/:userId', async (req, res, next) => {
 //display selected product by ID
 router.get('/:productId', async (req, res, next) => {
   try {
-    const selectedProduct = await Product.findByPk({
+    const selectedProduct = await Product.findAll({
       where: {
         id: req.params.productId
       }
