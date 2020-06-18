@@ -19,7 +19,8 @@ const User = db.define('product', {
     type: Sequelize.INTEGER
   },
   imageURL: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: 'https://i.pinimg.com/originals/a5/60/bd/a560bd923578934b33177d157f12c899.png'
   }
 })
 
