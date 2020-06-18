@@ -10,7 +10,7 @@ describe('Product Model', () => {
   beforeEach(() => {
     product = {
       name: 'R2-D2',
-      price: 52,
+      price: 52.00,
       description: 'A totally A-OK robot',
       imageURL:
         'https://images-na.ssl-images-amazon.com/images/I/61srwGulapL._AC_SX522_.jpg',
@@ -27,7 +27,7 @@ describe('Product Model', () => {
       'https://images-na.ssl-images-amazon.com/images/I/61srwGulapL._AC_SX522_.jpg'
     )
     expect(savedProduct.description).to.equal('A totally A-OK robot')
-    expect(savedProduct.price).to.equal(52)
+    expect(savedProduct.price).to.equal(52.00)
     expect(savedProduct.itemsInStock).to.equal(1)
     expect(savedProduct.notARealAttribute).to.equal(undefined)
   })
@@ -61,7 +61,7 @@ describe('Product Model', () => {
     } catch (err) {
       expect(err.message).to.not.have.string('Validation should have failed')
     }
-    product.price = '12'
+    product.price = '12.00'
     try {
       const stringProductPrice = await Product.create(product)
       if (stringProductPrice) {

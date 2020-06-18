@@ -19,8 +19,7 @@ const User = db.define('product', {
     type: Sequelize.INTEGER
   },
   imageURL: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   }
 })
 
