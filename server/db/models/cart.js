@@ -6,7 +6,7 @@ const Cart = db.define('cart', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: [['active', 'completed', 'deleted', 'empty']]
+      isIn: [['active', 'completed', 'deleted']]
     }
   },
   items: {

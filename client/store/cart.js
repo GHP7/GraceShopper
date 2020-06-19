@@ -1,4 +1,5 @@
 import history from '../history'
+import axios from 'axios'
 // history needed to keep cart refreshing
 // no axios import since no database changes are happening until checkout
 
@@ -6,6 +7,7 @@ import history from '../history'
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const COMPLETE_CART  = 'COMPLETE_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
 
@@ -15,8 +17,9 @@ const DELETE_FROM_CART = 'DELETE_FROM_CART'
 //    quantity (INT)
 
 // ACTION CREATORS
-export const getCart = () => ({
-  type: GET_CART
+export const getCart = products => ({
+  type: GET_CART,
+  products
 })
 export const clearCart = () => ({
   type: CLEAR_CART
@@ -34,6 +37,10 @@ export const deleteFromCart = product => ({
   product
 })
 
+export const completeCart = products => ({
+  type: COMPLETE_CART,
+  products
+})
 // INITIAL STATE
 // checking if we have a localStorage cart already
 // otherwise assigning cart to an empty array
@@ -43,14 +50,18 @@ localStorage.getItem('cart')
   : (currentCart = [])
 
 // Thunks
-export const getCart = () => async dispatch => {
-  // const {data} = await axios.get('/api/cart')
+export const fetchCart = () => async dispatch => {
+  const {data} = await axios.get('/api/cart')
   dispatch(getCart(data))
 }
 
-export const clearCart = () => async dispatch => {
+export const emptyCart = () => async dispatch => {
   const {data} = await axios.post('/api/cart')
   dispatch(clearCart(data))
+}
+
+export const checkoutCart = async (products) => {
+  await axios.post('/api/order', products)
 }
 
 // *** REMINDER: FINISH WRITING REMAINDER OF THUNKS
