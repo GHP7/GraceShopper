@@ -48,14 +48,25 @@ export const updatedQuantity = product => ({
 })
 
 // THUNK CREATORS
+
+// [ ] To-do, trycatch all thunks
 export const fetchProducts = () => async dispatch => {
-  const {data} = await axios.get('/api/products')
-  dispatch(gotAllProducts(data))
+  try {
+    const {data} = await axios.get('/api/products')
+    console.log('this is my data', data)
+    dispatch(gotAllProducts(data))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export const fetchSingleProduct = id => async dispatch => {
-  const {data} = await axios.get(`/api/products/${id}`)
-  dispatch(gotSingleProduct(data))
+  try {
+    const {data} = await axios.get(`/api/products/${id}`)
+    dispatch(gotSingleProduct(data))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export const addProduct = newProduct => async dispatch => {
@@ -89,6 +100,7 @@ const productReducer = (state = initialState, action) => {
     case GOT_ALL_PRODUCTS:
       return {...state, allProducts: action.products}
     case GOT_SINGLE_PRODUCT:
+      console.log('REDUCER SINGLEPROD', action.product)
       return {...state, singleProduct: action.product}
     case UPDATED_QUANTITY:
       return {...state, singleProduct: action.product}
