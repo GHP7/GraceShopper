@@ -98,7 +98,7 @@ export const checkoutCart = async (products) => {
 
 // REDUCIN'
 
-export default function(state = currentCart, action) {
+const cartReducer = (state = currentCart, action) => {
   let products, productId
   switch (action.type) {
     case GET_CART:
@@ -148,3 +148,5 @@ export default function(state = currentCart, action) {
       return state
   }
 }
+
+export default cartReducer
