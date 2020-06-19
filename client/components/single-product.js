@@ -1,15 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { getSingleProduct } from '../store/product'
+import { addItemToCart } from '../store/cart'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id)
+    this.props.addItemToCart(this.props.getSingleProduct)
   }
 
   componentWillUnmount() {
     this.props.clearProduct()
   }
+
+
 
   render() {
     const product = this.props.singleProduct
@@ -37,6 +41,9 @@ export class SingleProduct extends React.Component {
               <p>Description: {product.description}</p>
             </div>
           </div>
+          <div>
+            <button type= 'submit' onSubmit = {this.props.addItemToCart}>Add To Cart</button>
+          </div>
         </div>
       </div>
     )
@@ -51,7 +58,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getSingleProduct: productId => dispatch(getSingleProduct(productId))
+    getSingleProduct: productId => dispatch(getSingleProduct(productId)),
+    addItemToCart: product => dispatch(addItemToCart(product))
   }
 }
 
