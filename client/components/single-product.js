@@ -1,13 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {
-  fetchSingleProduct,
-  updateProduct,
-  // completeProduct,
-  // clearProduct
-} from '../store/product'
-import AddProduct from './AddProduct'
+import { connect } from 'react-redux'
+import { getSingleProduct } from '../store/product'
 
 export class SingleProduct extends React.Component {
   componentDidMount() {
@@ -58,16 +51,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    getSingleProduct: productId => dispatch(fetchSingleProduct(productId)),
-
-    updateProduct: (productId, updateInfo) =>
-      dispatch(updateProduct(productId, updateInfo)),
-
-
-    // completeProduct: productId => dispatch(completeProduct(productId)),
-
-    // clearProduct: () => dispatch(clearProduct())
-
+    getSingleProduct: productId => dispatch(getSingleProduct(productId))
   }
 }
 
