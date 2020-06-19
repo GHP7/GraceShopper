@@ -7,6 +7,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const UPDATE_STATUS = 'UPDATE_STATUS'
 const COMPLETE_CART  = 'COMPLETE_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const DELETE_FROM_CART = 'DELETE_FROM_CART'
@@ -37,6 +38,11 @@ export const deleteFromCart = product => ({
   product
 })
 
+export const updateStatus = products => ({
+  type: UPDATE_STATUS,
+  products
+})
+
 export const completeCart = products => ({
   type: COMPLETE_CART,
   products
@@ -47,7 +53,11 @@ export const completeCart = products => ({
 let currentCart
 localStorage.getItem('cart')
   ? (currentCart = JSON.parse(localStorage.getItem('cart')))
-  : (currentCart = [])
+  : (currentCart = {
+    status: 'active',
+    items: [],
+    subTotal: 0
+  })
 
 // Thunks
 export const fetchCart = () => async dispatch => {
@@ -55,9 +65,22 @@ export const fetchCart = () => async dispatch => {
   dispatch(getCart(data))
 }
 
+export const addItemToCart = (product) => async dispatch => {
+  const {data} = await axios.post('/api/cart', product)
+  dispatch(addToCart(data))
+}
+
 export const emptyCart = () => async dispatch => {
-  const {data} = await axios.post('/api/cart')
+  const {data} = await axios.put('/api/cart', {
+    status: 'empty',
+    items: [],
+    subtotal: 0
+  } )
   dispatch(clearCart(data))
+}
+
+export const changeStatus = (products) => async dispatch => {
+  await dispatch(updateStatus(products))
 }
 
 export const checkoutCart = async (products) => {
@@ -68,34 +91,31 @@ export const checkoutCart = async (products) => {
 
 // REDUCIN'
 
-export default function(state = initialCart, action) {
+export default function(state = currentCart, action) {
   let products, productId
   switch (action.type) {
     case GET_CART:
       return state
-
     case CLEAR_CART:
       localStorage.setItem('cart', [])
-      return { ...state, status: 'empty', items: [], subTotal: 0 }
-
-    case ADD_TO_CART:
-      productId = state.findIndex(element => element.id === action.product.id)
-      if (productId > -1) {
-        products = state
-        products[productId].quantity += 1
-      } else {
-        products = state.concat([
-          {
-            id: action.product.id,
-            product: action.product,
-            quantity: 1
-          }
-        ])
-      }
-      localStorage.setItem('cart', JSON.stringify(products))
-      history.push('/cart')
-      return products
-
+      return { ...state, state: {status: 'empty', items: [], subTotal: 0 }}
+    // case ADD_TO_CART:
+    //   productId = state.findIndex(element => element.id === action.product.id)
+    //   if (productId > -1) {
+    //     products = state
+    //     products["productId"].quantity += 1
+    //   } else {
+    //     products = state.concat([
+    //       {
+    //         id: action.product.id,
+    //         product: action.product,
+    //         quantity: 1
+    //       }
+    //     ])
+    //   }
+    //   localStorage.setItem('cart', JSON.stringify(products))
+    //   history.push('/cart')
+    //   return products
     case REMOVE_FROM_CART:
       productId = state.findIndex(element => element.id === action.product.id)
       if (productId > -1) {
