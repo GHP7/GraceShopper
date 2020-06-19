@@ -47,9 +47,11 @@ export const completeCart = products => ({
   type: COMPLETE_CART,
   products
 })
+
 // INITIAL STATE
 // checking if we have a localStorage cart already
 // otherwise assigning cart to an empty array
+
 let currentCart
 localStorage.getItem('cart')
   ? (currentCart = JSON.parse(localStorage.getItem('cart')))
@@ -68,6 +70,11 @@ export const fetchCart = () => async dispatch => {
 export const addItemToCart = (product) => async dispatch => {
   const {data} = await axios.post('/api/cart', product)
   dispatch(addToCart(data))
+}
+
+export const removeItemFromCart = (id) => async dispatch => {
+  const {data} = await axios.delete(`/api/cart/${id}`)
+  dispatch(removeFromCart(data)); 
 }
 
 export const emptyCart = () => async dispatch => {
