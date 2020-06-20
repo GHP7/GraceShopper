@@ -34,6 +34,7 @@ export class SingleProduct extends React.Component {
               <p>Description: {product.description}</p>
             </div>
           </div>
+          <button type= 'submit' onSubmit = {this.props.addItemToCart}>Add To Cart</button>
             </div>
     )
   }
