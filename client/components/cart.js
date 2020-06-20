@@ -1,7 +1,7 @@
 import React from 'react'
 import { Connect, Link } from 'react-router-dom'
 // import { AllProducts } from './all-products';
-import { fetchCart, removeItemFromCart } from '../store/cart'
+import { fetchCart, removeItemFromCart, changeStatus } from '../store/cart'
 
 export class Cart extends React.Component {
     constructor(props) {
@@ -12,9 +12,11 @@ export class Cart extends React.Component {
         }
         this.changeQuantity = this.changeQuantity.bind(this)
         this.updateSubtotal = this.updateSubtotal.bind(this)
+        this.updateStatus = this.updateStatus.bind(this)
     }
     componentDidMount() {
       this.props.removeItemFromCart(this.products.items.id)
+      this.props.updateStatus(status)
     }
 
     // when user changes quantity input, this.state.quantity updates as well
@@ -29,6 +31,13 @@ export class Cart extends React.Component {
       this.setSate = {
         subTotal: this.state.subTotal + event.target.value
       }
+    }
+
+    // when user clicks on 'proceed to check out', we send a new status to the updateStatus thunk, which then triggers an axios.put request to the cart table
+    updateStatus(event) {
+      this.props.updateStatus({
+        status: 'COMPLETED'
+      })
     }
 
     render() {
@@ -71,13 +80,14 @@ export class Cart extends React.Component {
           <div className='summary-total-price'>{totalPrice}</div>
         </div>
         <div className='checkout'>
-          <button className='checkout-button' type='submit'>Proceed to Check Out</button>
+          <Link className='checkout-button' onClick= {this.updateStatus}>Proceed to Check Out</Link>
         </div>
       </div>
     )
   }
 }
 
+// remember to add route and component that redirects to payment page!!!
 
 const mapState = state => {
   return {
@@ -88,7 +98,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCart()),
-    removeItemFromCart: (id) => dispatch(removeItemFromCart(id))
+    removeItemFromCart: (id) => dispatch(removeItemFromCart(id)),
+    changeStatus: (status) => dispatch(changeStatus(status))
   }
 }
 
