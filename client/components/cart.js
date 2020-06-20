@@ -7,9 +7,11 @@ export class Cart extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          quantity: 1
+          quantity: 1,
+          subTotal:0
         }
         this.changeQuantity = this.changeQuantity.bind(this)
+        this.updateSubtotal = this.updateSubtotal.bind(this)
     }
     componentDidMount() {
       this.props.removeItemFromCart(this.products.items.id)
@@ -22,7 +24,16 @@ export class Cart extends React.Component {
       }
     }
 
+    // when each product is mapped and rendered, product price should add to subTotal
+    updateSubtotal(event) {
+      this.setSate = {
+        subTotal: this.state.subTotal + event.target.value
+      }
+    }
+
     render() {
+      let tax = this.state.subTotal* 0.9
+      let totalPrice = this.state.subTotal + tax
       return (<div className='cart'>
         <div id='cart-view'>
           {this.products.items.map(product => {
@@ -37,14 +48,30 @@ export class Cart extends React.Component {
                       <div className='single-product-name'>{product.name}</div>
                       <div className='single-product-description'>{product.description}</div>
                       <div className='single-product-itemsInStock'>{product.itemsInStock}</div>
-                      <div className='single-product-price'>{product.price}</div>
+                      <div className='single-product-price' onRender = {this.updateSubtotal}>{product.price}</div>
                   </div>
-                  <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
-                  <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
-                  <input type='number' onChange={this.changeQuantity}/>
+                  <div className='remove-item-button'>
+                    <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
+                  </div>
+                  <div className='update-quantity-button'>
+                    <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
+                    <input type='number' onChange={this.changeQuantity}/>
+                  </div>
               </div>
             )
           })}
+          <div className='cart-subtotal'>
+          {this.state.subTotal}
+          </div>
+        </div>
+        <div className='cart-summary'>
+          <div className='summary-title'>Summary</div>
+          <div className='summary-subtotal'>{this.state.subTotal}</div>
+          <div className='summary-tax'>{tax}</div>
+          <div className='summary-total-price'>{totalPrice}</div>
+        </div>
+        <div className='checkout'>
+          <button className='checkout-button' type='submit'>Proceed to Check Out</button>
         </div>
       </div>
     )
