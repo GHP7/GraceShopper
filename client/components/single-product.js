@@ -34,7 +34,7 @@ export class SingleProduct extends React.Component {
               <p>Description: {product.description}</p>
             </div>
           </div>
-          <button type= 'submit' onSubmit = {this.props.addItemToCart}>Add To Cart</button>
+          <button class='waves-effect waves-light btn' type= 'submit' onSubmit = {this.props.addItemToCart}>Add To Cart</button>
           <div>
           <a href="../products">Not quite what you're looking for?</a>
           </div>
