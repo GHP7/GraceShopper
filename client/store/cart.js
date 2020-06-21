@@ -65,6 +65,7 @@ localStorage.getItem('cart')
 export const fetchCart = () => async dispatch => {
   const {data} = await axios.get('/api/cart')
   dispatch(getCart(data))
+  history.push('/cart')
 }
 
 export const addItemToCart = (product) => async dispatch => {
