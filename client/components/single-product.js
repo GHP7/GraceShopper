@@ -30,11 +30,14 @@ export class SingleProduct extends React.Component {
               <h5>{product.name}</h5>
               <img src={product.imgURL} width="200" height="200" />
               <p>Price: ${product.price}</p>
-              <p>Left in stock: {product.itemsInStock}</p>
+              {product.itemsInStock < 20 ? <p>Hurry! Only {product.itemsInStock} left in stock!</p> : ''}
               <p>Description: {product.description}</p>
             </div>
           </div>
           <button type= 'submit' onSubmit = {this.props.addItemToCart}>Add To Cart</button>
+          <div>
+          <a href="../products">Not quite what you're looking for?</a>
+          </div>
             </div>
     )
   }
