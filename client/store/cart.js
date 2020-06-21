@@ -88,8 +88,8 @@ export const emptyCart = () => async dispatch => {
   dispatch(clearCart(data))
 }
 
-export const changeStatus = (products) => async dispatch => {
-  await dispatch(updateStatus(products))
+export const changeStatus = (status) => async dispatch => {
+  await dispatch(updateStatus(status))
 }
 
 export const checkoutCart = async (products) => {
