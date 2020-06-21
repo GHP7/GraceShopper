@@ -1,7 +1,7 @@
 import React from 'react'
 import { Connect, Link } from 'react-router-dom'
 // import { AllProducts } from './all-products';
-import { fetchCart, removeItemFromCart, changeStatus } from '../store/cart'
+import { fetchCart, removeItemFromCart } from '../store/cart'
 
 export class Cart extends React.Component {
     constructor(props) {
@@ -33,12 +33,12 @@ export class Cart extends React.Component {
       }
     }
 
-    // when user clicks on 'proceed to check out', we send a new status to the updateStatus thunk, which then triggers an axios.put request to the cart table
-    changeStatus(event) {
-      this.props.changeStatus({
-        status: 'COMPLETED'
-      })
-    }
+    // // when user clicks on 'proceed to check out', we send a new status to the updateStatus thunk, which then triggers an axios.put request to the cart table
+    // changeStatus(event) {
+    //   this.props.changeStatus({
+    //     status: 'COMPLETED'
+    //   })
+    // }
 
     render() {
       let tax = this.state.subTotal* 0.9
@@ -80,7 +80,7 @@ export class Cart extends React.Component {
           <div className='summary-total-price'>{totalPrice}</div>
         </div>
         <div className='checkout'>
-          <Link className='checkout-button' onClick= {this.changeStatus}>Proceed to Check Out</Link>
+          <Link className='checkout-button'>Proceed to Check Out</Link>
         </div>
       </div>
     )
@@ -99,7 +99,7 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCart()),
     removeItemFromCart: (id) => dispatch(removeItemFromCart(id)),
-    changeStatus: (status) => dispatch(changeStatus(status))
+    // changeStatus: (status) => dispatch(changeStatus(status))
   }
 }
 
