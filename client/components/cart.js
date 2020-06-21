@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 // import { AllProducts } from './all-products';
-import { fetchCart, removeItemFromCart, changeStatus } from '../store/cart'
+import { fetchCart, removeItemFromCart } from '../store/cart'
 
 export class Cart extends React.Component {
     constructor(props) {
@@ -13,11 +13,11 @@ export class Cart extends React.Component {
         }
         this.changeQuantity = this.changeQuantity.bind(this)
         this.updateSubtotal = this.updateSubtotal.bind(this)
-        this.updateStatus = this.updateStatus.bind(this)
+        this.changeStatus = this.changeStatus.bind(this)
     }
     componentDidMount() {
       this.props.removeItemFromCart(this.products.items.id)
-      this.props.updateStatus(status)
+      this.props.changeStatus(status)
     }
 
     // when user changes quantity input, this.state.quantity updates as well
@@ -34,12 +34,12 @@ export class Cart extends React.Component {
       }
     }
 
-    // when user clicks on 'proceed to check out', we send a new status to the updateStatus thunk, which then triggers an axios.put request to the cart table
-    updateStatus(event) {
-      this.props.updateStatus({
-        status: 'COMPLETED'
-      })
-    }
+    // // when user clicks on 'proceed to check out', we send a new status to the updateStatus thunk, which then triggers an axios.put request to the cart table
+    // changeStatus(event) {
+    //   this.props.changeStatus({
+    //     status: 'COMPLETED'
+    //   })
+    // }
 
     render() {
       let tax = this.state.subTotal* 0.9
@@ -81,7 +81,7 @@ export class Cart extends React.Component {
           <div className='summary-total-price'>{totalPrice}</div>
         </div>
         <div className='checkout'>
-          <Link className='checkout-button' onClick= {this.updateStatus}>Proceed to Check Out</Link>
+          <Link className='checkout-button'>Proceed to Check Out</Link>
         </div>
       </div>
     )
@@ -100,7 +100,7 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCart()),
     removeItemFromCart: (id) => dispatch(removeItemFromCart(id)),
-    changeStatus: (status) => dispatch(changeStatus(status))
+    // changeStatus: (status) => dispatch(changeStatus(status))
   }
 }
 
