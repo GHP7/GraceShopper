@@ -9,8 +9,7 @@ export class SingleProduct extends React.Component {
     this.props.addItemToCart(this.props.getSingleProduct)
   }
   render() {
-    const product = this.props.singleProduct[0]
-    console.log('THIS BE MY SINGLE PRODDUCT', product)
+    const product = this.props.product
     return (
       <div>
         {/* <div className="container">
@@ -28,9 +27,9 @@ export class SingleProduct extends React.Component {
           <h4 className="title">Product Information</h4>
           <div id="single-product-view">
               <div key={product.id}>
-              <p>Product Name: {product.name}</p>
-              <img src={product.imageUrl} />
-              <p>Price: {product.price}</p>
+              <h5>{product.name}</h5>
+              <img src={product.imgURL} width="200" height="200" />
+              <p>Price: ${product.price}</p>
               <p>Left in stock: {product.itemsInStock}</p>
               <p>Description: {product.description}</p>
             </div>
@@ -43,12 +42,11 @@ export class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    singleProduct: state.productReducer.singleProduct
+    product: state.productReducer.singleProduct
   }
 }
 
 const mapDispatch = dispatch => {
-  // console.log('mapping to dispatch', productId)
   return {
     getSingleProduct: productId => dispatch(fetchSingleProduct(productId)),
     addItemToCart: product => dispatch(addItemToCart(product))

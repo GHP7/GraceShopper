@@ -53,7 +53,6 @@ export const updatedQuantity = product => ({
 export const fetchProducts = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/products')
-    console.log('this is my data', data)
     dispatch(gotAllProducts(data))
   } catch (error) {
     console.error(error)
@@ -100,7 +99,6 @@ const productReducer = (state = initialState, action) => {
     case GOT_ALL_PRODUCTS:
       return {...state, allProducts: action.products}
     case GOT_SINGLE_PRODUCT:
-      console.log('REDUCER SINGLEPROD', action.product)
       return {...state, singleProduct: action.product}
     case UPDATED_QUANTITY:
       return {...state, singleProduct: action.product}
