@@ -21,7 +21,7 @@ export class AllProducts extends React.Component {
                     <Link to={`/products/${product.id}`}>
                       <div>
                         <p>{product.name}</p>
-                        <p>${product.price}</p>
+                        <p>{product.price}</p>
                         <img src={product.imageUrl} width='20%'/>
                       </div>
                     </Link>
