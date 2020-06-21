@@ -10,7 +10,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const UPDATE_STATUS = 'UPDATE_STATUS'
 const COMPLETE_CART  = 'COMPLETE_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-const DELETE_FROM_CART = 'DELETE_FROM_CART'
+// const DELETE_FROM_CART = 'DELETE_FROM_CART'
 
 // Our cart will be an array of objects with the following keys and value types
 //    id (INT)
@@ -33,14 +33,14 @@ export const removeFromCart = product => ({
   type: REMOVE_FROM_CART,
   product
 })
-export const deleteFromCart = product => ({
-  type: DELETE_FROM_CART,
-  product
-})
+// export const deleteFromCart = product => ({
+//   type: DELETE_FROM_CART,
+//   product
+// })
 
-export const updateStatus = products => ({
+export const updateStatus = status => ({
   type: UPDATE_STATUS,
-  products
+  status
 })
 
 export const completeCart = products => ({
@@ -72,9 +72,10 @@ export const addItemToCart = (product) => async dispatch => {
   dispatch(addToCart(data))
 }
 
+// need to write reducer for this
 export const removeItemFromCart = (id) => async dispatch => {
   const {data} = await axios.delete(`/api/cart/${id}`)
-  dispatch(removeFromCart(data)); 
+  dispatch(removeFromCart(data));
 }
 
 export const emptyCart = () => async dispatch => {
@@ -99,13 +100,19 @@ export const checkoutCart = async (products) => {
 // REDUCIN'
 
 const cartReducer = (state = currentCart, action) => {
-  let products, productId
+  // let products, productId
   switch (action.type) {
     case GET_CART:
-      return state
+      return {...state, state: action.products
+      }
     case CLEAR_CART:
       localStorage.setItem('cart', [])
       return { ...state, state: {status: 'empty', items: [], subTotal: 0 }}
+    case UPDATE_STATUS:
+      return {...state,
+        status: action.status
+      }
+
     // case ADD_TO_CART:
     //   productId = state.findIndex(element => element.id === action.product.id)
     //   if (productId > -1) {
@@ -123,26 +130,27 @@ const cartReducer = (state = currentCart, action) => {
     //   localStorage.setItem('cart', JSON.stringify(products))
     //   history.push('/cart')
     //   return products
-    case REMOVE_FROM_CART:
-      productId = state.findIndex(element => element.id === action.product.id)
-      if (productId > -1) {
-        products = state
-        if (products[productId].quantity > 1) products[productId].quantity -= 1
-        else products.splice(productId, 1)
-      }
-      localStorage.setItem('cart', JSON.stringify(products))
-      history.push('/cart')
-      return products
+    // case REMOVE_FROM_CART:
+    //   productId = state.findIndex(element => element.id === action.product.id)
+    //   if (productId > -1) {
+    //     products = state
+    //     if (products[productId].quantity > 1) products[productId].quantity -= 1
+    //     else products.splice(productId, 1)
+    //   }
+    //   localStorage.setItem('cart', JSON.stringify(products))
+    //   history.push('/cart')
+    //   return products
 
-    case DELETE_FROM_CART:
-      productId = state.findIndex(element => element.id === action.product.id)
-      if (productId > -1) {
-        products = state
-        products.splice(productId, 1)
-      }
-      localStorage.setItem('cart', JSON.stringify(products))
-      history.push('/cart')
-      return products
+
+    // case DELETE_FROM_CART:
+    //   productId = state.findIndex(element => element.id === action.product.id)
+    //   if (productId > -1) {
+    //     products = state
+    //     products.splice(productId, 1)
+    //   }
+    //   localStorage.setItem('cart', JSON.stringify(products))
+    //   history.push('/cart')
+    //   return products
 
     default:
       return state
