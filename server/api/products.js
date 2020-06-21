@@ -25,13 +25,9 @@ router.get('/productsByUser/:userId', async (req, res, next) => {
 })
 
 //display selected product by ID
-router.get('/:productId', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
-    const selectedProduct = await Product.findAll({
-      where: {
-        id: req.params.productId
-      }
-    })
+    const selectedProduct = await Product.findByPk(req.params.id)
     if (selectedProduct) {
       res.status(200).json(selectedProduct)
     } else {
