@@ -92,4 +92,4 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default Connect(mapState, mapDispatch)(Cart) 
+export default Connect(mapState, mapDispatch)(Checkout) 
