@@ -9,8 +9,7 @@ export class SingleProduct extends React.Component {
     this.props.addItemToCart(this.props.getSingleProduct)
   }
   render() {
-    const product = this.props.singleProduct[0]
-    console.log('THIS BE MY SINGLE PRODDUCT', product)
+    const product = this.props.product
     return (
       <div>
         {/* <div className="container">
@@ -25,17 +24,20 @@ export class SingleProduct extends React.Component {
               ''
             )}
           </div> */}
-          <h4 className="title">Product Information</h4>
+          <h4 className="title">Product details</h4>
           <div id="single-product-view">
               <div key={product.id}>
-              <p>Product Name: {product.name}</p>
-              <img src={product.imageUrl} />
-              <p>Price: {product.price}</p>
-              <p>Left in stock: {product.itemsInStock}</p>
+              <h5>{product.name}</h5>
+              <img src={product.imgURL} width="200" height="200" />
+              <p>Price: ${product.price}</p>
+              {product.itemsInStock < 20 ? <p>Hurry! Only {product.itemsInStock} left in stock!</p> : ''}
               <p>Description: {product.description}</p>
             </div>
           </div>
-          <button type= 'submit' onSubmit = {this.props.addItemToCart}>Add To Cart</button>
+          <button class='waves-effect waves-light btn' type= 'submit' onSubmit = {this.props.addItemToCart}>Add To Cart</button>
+          <div>
+          <a href="../products">Not quite what you're looking for?</a>
+          </div>
             </div>
     )
   }
@@ -43,12 +45,11 @@ export class SingleProduct extends React.Component {
 
 const mapState = state => {
   return {
-    singleProduct: state.productReducer.singleProduct
+    product: state.productReducer.singleProduct
   }
 }
 
 const mapDispatch = dispatch => {
-  // console.log('mapping to dispatch', productId)
   return {
     getSingleProduct: productId => dispatch(fetchSingleProduct(productId)),
     addItemToCart: product => dispatch(addItemToCart(product))

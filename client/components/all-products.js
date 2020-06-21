@@ -6,16 +6,13 @@ import { Link } from 'react-router-dom';
 export class AllProducts extends React.Component {
   componentDidMount() {
     this.props.getProducts();
-    // console.log('product in compoenntdidtmount', this.props.products)
   }
-  // componentDidUnmount
 
   render() {
     const products = this.props.products;
     return (
       <div className="container">
         <p className="title">All Products</p>
-        {console.log('these are my products', products)}
         <div id="all-products-view">
           {products && products.length > 0
             ? products.map((product) => {
