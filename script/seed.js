@@ -14,11 +14,11 @@ async function seed() {
     let randomPassword = faker.internet.password()
 
     // Dummy user data
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 20; i++) {
       await User.create({
         // name: randomName,
         email: faker.internet.email(),
-        password: randomPassword
+        password: faker.internet.password()
       })
     }
 
@@ -33,7 +33,7 @@ async function seed() {
     // let randomImage = faker.image.imageUrl()
 
     // Dummy product data
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 100; i++) {
       await Product.create({
         // name: randomProductName,
         name: faker.random.words(),

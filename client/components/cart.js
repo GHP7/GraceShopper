@@ -13,8 +13,7 @@ export class Cart extends React.Component {
     }
 
     render() {
-        return (
-        <div className='cart'>
+        return <div className='cart'>   
             <div id='cart-view'>
                 {products.map(product => {
                     return (
@@ -32,18 +31,13 @@ export class Cart extends React.Component {
                             </div>
                             <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
                             <label for='itemQuantity'>Quantity: </label>
-                            <input type='number'></input>
+                            <input type='number'></input>>
                         </div>
                     )
-                }
-                )
-            }
-            </div>
+                )}
         </div>
-        )
+        </div>
     }
-}
-
 
 const mapState = state => {
     return {
@@ -57,5 +51,6 @@ const mapDispatch = dispatch => {
         removeItemFromCart: (id) => dispatch(removeItemFromCart(id))
     }
 }
+
 
 export default connect(mapState, mapDispatch)(AllProducts)
