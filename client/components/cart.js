@@ -1,5 +1,6 @@
 import React from 'react'
-import { Connect, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 // import { AllProducts } from './all-products';
 import { fetchCart, removeItemFromCart, changeStatus } from '../store/cart'
 
@@ -103,4 +104,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default Connect(mapState, mapDispatch)(Cart)
+export default connect(mapState, mapDispatch)(Cart)
