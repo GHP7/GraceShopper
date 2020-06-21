@@ -24,7 +24,7 @@ export class SingleProduct extends React.Component {
               ''
             )}
           </div> */}
-          <h4 className="title">Product Information</h4>
+          <h4 className="title">Product details</h4>
           <div id="single-product-view">
               <div key={product.id}>
               <h5>{product.name}</h5>
