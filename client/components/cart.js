@@ -16,6 +16,7 @@ export class Cart extends React.Component {
         // this.changeStatus = this.changeStatus.bind(this)
     }
     componentDidMount() {
+      this.props.fetchCart()
       this.props.removeItemFromCart(this.products.items.id)
       this.props.changeStatus(status)
     }
@@ -44,9 +45,10 @@ export class Cart extends React.Component {
     render() {
       let tax = this.state.subTotal* 0.9
       let totalPrice = this.state.subTotal + tax
+      let cartItems = this.props.fetchCart()
       return (<div className='cart'>
         <div id='cart-view'>
-          {this.products.items.map(product => {
+          {cartItems.map(product => {
             return (
               <div className='single-cart-product' key={product.id}>
                   <Link to={`/products/${product.id}`}>
@@ -91,8 +93,9 @@ export class Cart extends React.Component {
 // remember to add route and component that redirects to payment page!!!
 
 const mapState = state => {
+  console.log(state)
   return {
-    products: state
+    cart: state.cartReducer
   }
 }
 

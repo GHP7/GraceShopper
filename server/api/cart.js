@@ -31,7 +31,8 @@ router.post('/', async (req, res, next) => {
   try {
     const newItem = await Cart.create({
       status: 'ACTIVE',
-      items: req.body
+      items: req.body,
+      subTotal: req.body.price
     })
     console.log(newItem)
     res.json(newItem)
