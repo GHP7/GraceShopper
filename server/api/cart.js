@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const { Cart } = require('../db/models')
-module.exports = router
 
 router.delete('/:productId', async (req, res, next) => {
   try {
@@ -31,11 +30,14 @@ router.put('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const newItem = await Cart.create({
+      status: 'ACTIVE',
       items: req.body
     })
-    res.status(201).json(newItem)
+    console.log(newItem)
+    res.json(newItem)
   } catch (err) {
-    res.status(404).send('Cannot add to cart!')
+    res.send(err)
+
   }
 })
 
@@ -47,3 +49,5 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+module.exports = router
