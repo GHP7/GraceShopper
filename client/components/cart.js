@@ -13,7 +13,7 @@ export class Cart extends React.Component {
         }
         this.changeQuantity = this.changeQuantity.bind(this)
         this.updateSubtotal = this.updateSubtotal.bind(this)
-        this.changeStatus = this.changeStatus.bind(this)
+        // this.changeStatus = this.changeStatus.bind(this)
     }
     componentDidMount() {
       this.props.removeItemFromCart(this.products.items.id)

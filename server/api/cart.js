@@ -31,12 +31,11 @@ router.put('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const newItem = await Cart.create({
-      status: 'ACTIVE',
       items: req.body
     })
-    res.json(newItem)
+    res.status(201).json(newItem)
   } catch (err) {
-    next(err)
+    res.status(404).send('Cannot add to cart!')
   }
 })
 
