@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const { Cart } = require('../db/models')
-module.exports = router
 
 router.delete('/:productId', async (req, res, next) => {
   try {
@@ -32,11 +31,14 @@ router.post('/', async (req, res, next) => {
   try {
     const newItem = await Cart.create({
       status: 'ACTIVE',
-      items: req.body
+      items: req.body,
+      subTotal: req.body.price
     })
+    console.log(newItem)
     res.json(newItem)
   } catch (err) {
-    next(err)
+    res.send(err)
+
   }
 })
 
@@ -48,3 +50,5 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+module.exports = router
