@@ -1,7 +1,7 @@
 'use strict'
 var faker = require('faker')
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Order} = require('../server/db/models')
 
 async function seed() {
   // await db.sync({force: true})
@@ -33,8 +33,8 @@ async function seed() {
     // let randomImage = faker.image.imageUrl()
 
     // Dummy product data
-    for (let i = 0; i < 100; i++) {
-      await Product.create({
+    for (let i = 0; i < 50; i++) {
+      let product = await Product.create({
         // name: randomProductName,
         name: faker.random.words(),
         price: faker.random.number(),
@@ -42,7 +42,16 @@ async function seed() {
         itemsInStock: faker.random.number(),
         imageURL: faker.image.imageUrl()
       })
+
+      for (let i = 0; i < 1; i++) {
+        await Order.create({
+          status: 'COMPLETED',
+          items: [product],
+          subTotal: product.price
+        })
+      }
     }
+
   } catch (err) {
     console.log(err)
   }
