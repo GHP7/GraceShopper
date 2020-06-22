@@ -45,33 +45,36 @@ export class Cart extends React.Component {
     render() {
       let tax = this.state.subTotal* 0.9
       let totalPrice = this.state.subTotal + tax
-      let cartItems = this.props.fetchCart()
+      let cartItems = this.props.cart
+      console.log(cartItems)
       return (<div className='cart'>
         <div id='cart-view'>
-          {cartItems.map(product => {
-            return (
-              <div className='single-cart-product' key={product.id}>
-                  <Link to={`/products/${product.id}`}>
-                      <div className='single-product'>
-                        <img src={product.imageURL}></img>
-                      </div>
-                  </Link>
-                  <div className='single-product-info'>
-                      <div className='single-product-name'>{product.name}</div>
-                      <div className='single-product-description'>{product.description}</div>
-                      <div className='single-product-itemsInStock'>{product.itemsInStock}</div>
-                      <div className='single-product-price' onRender = {this.updateSubtotal}>{product.price}</div>
-                  </div>
-                  <div className='remove-item-button'>
-                    <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
-                  </div>
-                  <div className='update-quantity-button'>
-                    <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
-                    <input type='number' onChange={this.changeQuantity}/>
-                  </div>
-              </div>
-            )
-          })}
+          {cartItems && cartItems.length > 0
+            ? cartItems.map(product => {
+              return (
+                <div className='single-cart-product' key={product.id}>
+                    <Link to={`/products/${product.id}`}>
+                        <div className='single-product'>
+                          <img src={product.imageURL} />
+                        </div>
+                    </Link>
+                    <div className='single-product-info'>
+                        <div className='single-product-name'>{product.name}</div>
+                        <div className='single-product-description'>{product.description}</div>
+                        <div className='single-product-itemsInStock'>{product.itemsInStock}</div>
+                        <div className='single-product-price' onRender = {this.updateSubtotal}>{product.price}</div>
+                    </div>
+                    <div className='remove-item-button'>
+                      <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
+                    </div>
+                    <div className='update-quantity-button'>
+                      <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
+                      <input type='number' onChange={this.changeQuantity}/>
+                    </div>
+                </div>
+              )
+            })
+          : 'No items in cart'}
           <div className='cart-subtotal'>
           {this.state.subTotal}
           </div>
@@ -93,9 +96,8 @@ export class Cart extends React.Component {
 // remember to add route and component that redirects to payment page!!!
 
 const mapState = state => {
-  console.log(state)
   return {
-    cart: state.cartReducer
+    cart: state.cartReducer.currentCart
   }
 }
 
