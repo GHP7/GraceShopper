@@ -64,6 +64,7 @@ localStorage.getItem('cart')
 // Thunks
 export const fetchCart = () => async dispatch => {
   const {data} = await axios.get('/api/cart')
+  console.log('This is the redux store', data)
   dispatch(getCart(data))
   history.push('/cart')
 }
@@ -104,7 +105,7 @@ const cartReducer = (state = currentCart, action) => {
   // let products, productId
   switch (action.type) {
     case GET_CART:
-      return {...state, state: action.products
+      return {...state, items: action.products
       }
     case CLEAR_CART:
       localStorage.setItem('cart', [])
