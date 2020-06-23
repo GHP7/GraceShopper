@@ -18,9 +18,9 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 //    quantity (INT)
 
 // ACTION CREATORS
-export const getCart = products => ({
+export const getCart = cart => ({
   type: GET_CART,
-  products
+  cart
 })
 export const clearCart = () => ({
   type: CLEAR_CART
@@ -51,26 +51,28 @@ export const completeCart = products => ({
 // INITIAL STATE
 // checking if we have a localStorage cart already
 // otherwise assigning cart to an empty array
+let initialState = {
+  currentCart: [],
+}
 
-let currentCart
-localStorage.getItem('cart')
-  ? (currentCart = JSON.parse(localStorage.getItem('cart')))
-  : (currentCart = {
-    status: 'active',
-    items: [],
-    subTotal: 0
-  })
+// LOCAL STORAGE
+// localStorage.getItem('cart')
+//   ? (currentCart = JSON.parse(localStorage.getItem('cart')))
+//   : (currentCart = {
+//     status: 'active',
+//     items: [],
+//     subTotal: 0
+//   })
 
 // Thunks
-export const fetchCart = () => async dispatch => {
-  const {data} = await axios.get('/api/cart')
-  console.log('This is the redux store', data)
+export const fetchCart = (id) => async dispatch => {
+  const {data} = await axios.get(`/api/cart/${id}`)
   dispatch(getCart(data))
   history.push('/cart')
 }
 
-export const addItemToCart = (product) => async dispatch => {
-  const {data} = await axios.post('/api/cart', product)
+export const addItemToCart = (id, productId) => async dispatch => {
+  const {data} = await axios.post(`/api/cart/${id}`, productId)
   dispatch(addToCart(data))
 }
 
@@ -101,16 +103,17 @@ export const checkoutCart = async (products) => {
 
 // REDUCIN'
 
-const cartReducer = (state = currentCart, action) => {
+const cartReducer = (state = initialState, action) => {
   // let products, productId
   switch (action.type) {
     case GET_CART:
-      return {...state, items: action.products
-      }
+      return {...state, currentCart: action.cart}
     case CLEAR_CART:
       localStorage.setItem('cart', [])
-      return { ...state, state: {status: 'empty', items: [], subTotal: 0 }}
-    case UPDATE_STATUS:
+      return { ...state, currentCart: { subTotal: 0, quantity: 0 }}
+    // case ADD_TO_CART: 
+    //   return { ...state, currentCart: { }}
+      case UPDATE_STATUS:
       return {...state,
         status: action.status
       }

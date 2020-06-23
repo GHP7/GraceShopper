@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-// import { AllProducts } from './all-products';
+import { AllProducts } from './all-products';
 import { fetchCart, removeItemFromCart } from '../store/cart'
 
 export class Cart extends React.Component {
@@ -17,7 +17,7 @@ export class Cart extends React.Component {
     }
     componentDidMount() {
       this.props.fetchCart()
-      this.props.removeItemFromCart(this.products.items.id)
+      this.props.removeItemFromCart(this.cart.items.id)
       this.props.changeStatus(status)
     }
 
@@ -45,36 +45,39 @@ export class Cart extends React.Component {
     render() {
       let tax = this.state.subTotal* 0.9
       let totalPrice = this.state.subTotal + tax
+      let cartItems = this.props.fetchCart()
+      console.log('cartitems', cartItems)
+      console.log('props', this.props)
+      console.log('this', this)
       let cartItems = this.props.cart
       console.log(cartItems)
       return (<div className='cart'>
         <div id='cart-view'>
           {cartItems && cartItems.length > 0
             ? cartItems.map(product => {
-              return (
-                <div className='single-cart-product' key={product.id}>
-                    <Link to={`/products/${product.id}`}>
-                        <div className='single-product'>
-                          <img src={product.imageURL} />
-                        </div>
-                    </Link>
-                    <div className='single-product-info'>
-                        <div className='single-product-name'>{product.name}</div>
-                        <div className='single-product-description'>{product.description}</div>
-                        <div className='single-product-itemsInStock'>{product.itemsInStock}</div>
-                        <div className='single-product-price' onRender = {this.updateSubtotal}>{product.price}</div>
-                    </div>
-                    <div className='remove-item-button'>
-                      <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
-                    </div>
-                    <div className='update-quantity-button'>
-                      <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
-                      <input type='number' onChange={this.changeQuantity}/>
-                    </div>
-                </div>
-              )
-            })
-          : 'No items in cart'}
+            return (
+              <div className='single-cart-product' key={product.id}>
+                  <Link to={`/products/${product.productId}`}>
+                      <div className='single-product'>
+                        <img src={product.imageURL}></img>
+                      </div>
+                  </Link>
+                  <div className='single-product-info'>
+                      <div className='single-product-name'>{product.name}</div>
+                      <div className='single-product-description'>{product.description}</div>
+                      <div className='single-product-itemsInStock'>{product.itemsInStock}</div>
+                      <div className='single-product-price' onRender = {this.updateSubtotal}>{product.price}</div>
+                  </div>
+                  <div className='remove-item-button'>
+                    <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
+                  </div>
+                  <div className='update-quantity-button'>
+                    <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
+                    <input type='number' onChange={this.changeQuantity}/>
+                  </div>
+              </div>
+            )
+          }) : 'No items in cart' }
           <div className='cart-subtotal'>
           {this.state.subTotal}
           </div>

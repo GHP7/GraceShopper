@@ -15,11 +15,12 @@ export class SingleProduct extends React.Component {
 
   addToCartFunc() {
     this.props.addItemToCart({
-      name: this.props.product.name,
-      description: this.props.product.description,
-      price: this.props.product.price,
-      itemsInStock: this.props.product.itemsInStock,
-      imageURL: this.props.product.imageURL
+      // name: this.props.product.name,
+      // description: this.props.product.description,
+      // price: this.props.product.price,
+      // itemsInStock: this.props.product.itemsInStock,
+      // imageURL: this.props.product.imageURL
+      productId: this.props.product.id
     })
   }
 
