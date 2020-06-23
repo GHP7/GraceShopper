@@ -71,9 +71,13 @@ export const fetchCart = (id) => async dispatch => {
   history.push('/cart')
 }
 
-export const addItemToCart = (id, productId) => async dispatch => {
-  const {data} = await axios.post(`/api/cart/${id}`, productId)
-  dispatch(addToCart(data))
+export const addItemToCart = (productId) => async dispatch => {
+  try {
+    const {data} = await axios.post('/api/cart/', productId)
+    dispatch(addToCart(data))
+  } catch (error) {
+    console.log('add to cart button is broken!', error)
+  }
 }
 
 // need to write reducer for this
@@ -111,7 +115,7 @@ const cartReducer = (state = initialState, action) => {
     case CLEAR_CART:
       localStorage.setItem('cart', [])
       return { ...state, currentCart: { subTotal: 0, quantity: 0 }}
-    // case ADD_TO_CART: 
+    // case ADD_TO_CART:
     //   return { ...state, currentCart: { }}
       case UPDATE_STATUS:
       return {...state,

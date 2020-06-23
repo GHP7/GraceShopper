@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Cart } = require('../db/models')
+const { Cart, User } = require('../db/models')
 
 router.delete('/:productId', async (req, res, next) => {
   try {
@@ -27,14 +27,18 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.post('/:userId', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
+  //req.session.passport.user gets the userId that is currently logged in!! console.log works!!
+  // console.log(req.session.passport.user)
+  console.log(req.body.productId)
   try {
-    const user = await Cart.findAll({
+    console.log(req.body.productId)
+    const newItems = await Cart.create({
       where: {
-        userId: req.params.userId
+        userId: req.session.passport.user,
+        productId: req.body.productId
       }
     })
-    const newItems = user.create(req.body)
     res.json(newItems)
   } catch (err) {
     res.send(err)
@@ -42,26 +46,22 @@ router.post('/:userId', async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const items = await Cart.findAll({
-      where: {
-        userId: req.params.userId
-      }
-    })
+    const items = await Cart.findAll()
     res.json(items)
   } catch (error) {
     next(error)
   }
 })
 
-router.get('/', async (req, res, next) => {
-  try {
-    const cart = await Cart.findAll();
-    res.json(cart)
-  } catch (err) {
-    next(err)
-  }
-})
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const cart = await Cart.findAll();
+//     res.json(cart)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 module.exports = router

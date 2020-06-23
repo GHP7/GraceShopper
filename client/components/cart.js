@@ -45,7 +45,7 @@ export class Cart extends React.Component {
     render() {
       let tax = this.state.subTotal* 0.9
       let totalPrice = this.state.subTotal + tax
-      let cartItems = this.props.fetchCart()
+      // let cartItems = this.props.fetchCart()
       console.log('cartitems', cartItems)
       console.log('props', this.props)
       console.log('this', this)
