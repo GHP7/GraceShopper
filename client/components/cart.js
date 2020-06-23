@@ -55,30 +55,32 @@ export class Cart extends React.Component {
       return (<div className='cart'>
         <div id='cart-view'>
           {cartItems && cartItems.length > 0
-            ? cartItems.map(product => {
-            return (
-              <div className='single-cart-product' key={product}>
-                  <Link to={`/products/${product.id}`}>
-                      <div className='single-product'>
-                        <img src={product.imageURL}></img>
+            ? (cartItems.map((product) => {
+              if(product) {
+                return (
+                  <div className='single-cart-product' key={product.id}>
+                      <Link to={`/products/${product.id}`}>
+                          <div className='single-product'>
+                            <img src={product.imageURL} />
+                          </div>
+                      </Link>
+                      <div className='single-product-info'>
+                          <div className='single-product-name'>{product.name}</div>
+                          <div className='single-product-description'>{product.description}</div>
+                          <div className='single-product-itemsInStock'>{`Items in stock: ${product.itemsInStock}`}</div>
+                          <div className='single-product-price' onRender = {this.updateSubtotal}>{`Price: $${product.price}`}</div>
                       </div>
-                  </Link>
-                  {/* <div className='single-product-info'>
-                      <div className='single-product-name'>{product.name}</div>
-                      <div className='single-product-description'>{product.description}</div>
-                      <div className='single-product-itemsInStock'>{product.itemsInStock}</div>
-                      <div className='single-product-price' onRender = {this.updateSubtotal}>{product.price}</div>
+                      <div className='remove-item-button'>
+                        <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
+                      </div>
+                      <div className='update-quantity-button'>
+                        <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
+                        <input type='number' onChange={this.changeQuantity}/>
+                      </div>
                   </div>
-                  <div className='remove-item-button'>
-                    <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
-                  </div>
-                  <div className='update-quantity-button'>
-                    <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
-                    <input type='number' onChange={this.changeQuantity}/>
-                  </div> */}
-              </div>
-            )
-          }) : 'No items in cart' }
+                )
+              }
+          })) : 'No items in cart' }
           {/* <div className='cart-subtotal'>
           {this.state.subTotal}
           </div> */}
