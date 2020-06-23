@@ -1,22 +1,16 @@
 const router = require('express').Router()
-const {Product, User} = require('../db/models')
+const {Product, User, Cart} = require('../db/models')
 
 // [ ] To-do trycatch all routers
 // [ ] To-do conditionals for found consts
 
 //show all products associated with selected user
-router.get('/productsByUser/:userId', async (req, res, next) => {
+router.get('/productsByUser/', async (req, res, next) => {
   try {
     const productsPurchasedByUser = await Product.findAll({
-      include: [
-        {
-          model: User,
-          as: 'user',
-          where: {
-            id: req.params.userId
-          }
-        }
-      ]
+      where: {
+        id: req.session.passport.user
+      }
     })
     res.json(productsPurchasedByUser)
   } catch (err) {
