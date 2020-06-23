@@ -28,9 +28,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               </ul>
             </div>
           </nav>
-          {/* <Link to="/home">Home</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/cart">Cart</Link> */}
         </div>
       ) : (
         <div className="navbar-fixed">
@@ -50,12 +47,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               </ul>
             </div>
           </nav>
-          {/* <Link to="/home">Home</Link>
-          <Link to="/products">Products</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/cart">Cart</Link> */}
         </div>
+        
       )}
   </div>
 )

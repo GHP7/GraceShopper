@@ -11,7 +11,6 @@ export class AllProducts extends React.Component {
     const products = this.props.products;
     return (
       <div className="container">
-                           
       <div className="row">
         <p className="flow-text">Look at all this in-game awesomeness you could own!</p>
         <div id="all-products-view">
@@ -21,7 +20,7 @@ export class AllProducts extends React.Component {
                   <div className="col s3" key={product.id}>
                     <div className="card hoverable">
                     <div className="card-image">
-                    <a href={`/products/${product.id}`}><img src={product.imageURL} className="responsive-img" width="20%" height="20%" /></a>
+                    <a href={`/products/${product.id}`}><img src={product.imageURL} className="responsive-img" height="50%" /></a>
           <a className="btn-floating pulse halfway-fab waves-effect waves-light"><i className="material-icons">add_shopping_cart</i></a>
           </div>
           <div className="card-content">
