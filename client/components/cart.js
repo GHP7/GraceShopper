@@ -60,15 +60,15 @@ export class Cart extends React.Component {
                 return (
                   <div className='single-cart-product' key={product.id}>
                       <Link to={`/products/${product.id}`}>
-                          <div className='single-product'>
-                            <img src={product.imageURL} />
-                          </div>
+                        <div className='single-product'>
+                          <img src={product.imageURL} />
+                        </div>
                       </Link>
                       <div className='single-product-info'>
-                          <div className='single-product-name'>{product.name}</div>
-                          <div className='single-product-description'>{product.description}</div>
-                          <div className='single-product-itemsInStock'>{`Items in stock: ${product.itemsInStock}`}</div>
-                          <div className='single-product-price' onRender = {this.updateSubtotal}>{`Price: $${product.price}`}</div>
+                        <div className='single-product-name'>{product.name}</div>
+                        <div className='single-product-description'>{product.description}</div>
+                        <div className='single-product-itemsInStock'>{`Items in stock: ${product.itemsInStock}`}</div>
+                        <div className='single-product-price' onRender = {this.updateSubtotal}>{`Price: $${product.price}`}</div>
                       </div>
                       <div className='remove-item-button'>
                         <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
@@ -80,18 +80,20 @@ export class Cart extends React.Component {
                   </div>
                 )
               }
-          })) : 'No items in cart' }
-          {/* <div className='cart-subtotal'>
-          {this.state.subTotal}
-          </div> */}
+            }
+          )
+        ) : 'No items in cart' }
+        <div className='cart-subtotal'>
+         {`Subtotal: ${this.state.subTotal}`}
         </div>
-        {/* <div className='cart-summary'>
+        </div>
+        <div className='cart-summary'>
           <div className='summary-title'>Summary</div>
-          <div className='summary-subtotal'>{this.state.subTotal}</div>
-          <div className='summary-tax'>{tax}</div>
-          <div className='summary-total-price'>{totalPrice}</div>
+          <div className='summary-subtotal'>{`Subtotal: ${this.state.subTotal}`}</div>
+          <div className='summary-tax'>{`Tax: ${tax}`}</div>
+          <div className='summary-total-price'>{`Total Price: ${totalPrice}`}</div>
         </div>
-        <div className='checkout'>
+        {/* <div className='checkout'>
           <Link className='checkout-button'to = '/checkout'>Proceed to Check Out</Link>
         </div> */}
       </div>
