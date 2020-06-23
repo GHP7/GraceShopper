@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { AllProducts } from './all-products';
+// import { AllProducts } from './all-products';
 import { Checkout } from './checkout'
 import { fetchCart, removeItemFromCart } from '../store/cart'
 
@@ -15,10 +15,11 @@ export class Cart extends React.Component {
         // this.changeQuantity = this.changeQuantity.bind(this)
         // this.updateSubtotal = this.updateSubtotal.bind(this)
         // this.changeStatus = this.changeStatus.bind(this)
+        this.removeItem = this.removeItem.bind(this)
     }
     componentDidMount() {
       this.props.fetchCart()
-      // this.props.removeItemFromCart(this.cart.items.id)
+      this.props.removeItemFromCart()
       // this.props.changeStatus(status)
     }
 
@@ -43,15 +44,16 @@ export class Cart extends React.Component {
     //   })
     // }
 
+    removeItem(productId) {
+      this.props.removeItemFromCart(productId)
+    }
+
     render() {
       let tax = this.state.subTotal* 0.9
       let totalPrice = this.state.subTotal + tax
-      // let cartItems = this.props.fetchCart()
-      // console.log('props', this.props)
-      // console.log('this', this)
       let cartItems = this.props.cart
       // console.log('i am in cart comp render', cartItems)
-      console.log('in cart render: first product in cart', cartItems[0])
+      // console.log('in cart render: first product in cart', cartItems[0])
       return (<div className='cart'>
         <div id='cart-view'>
           {cartItems && cartItems.length > 0
@@ -71,7 +73,7 @@ export class Cart extends React.Component {
                         <div className='single-product-price' onRender = {this.updateSubtotal}>{`Price: $${product.price}`}</div>
                       </div>
                       <div className='remove-item-button'>
-                        <button type='submit' onSubmit={this.props.removeItemFromCart(product.id)}>Remove Item</button>
+                        <button type='submit' onClick={() => {this.removeItem(product.id)}}>Remove Item</button>
                       </div>
                       <div className='update-quantity-button'>
                         <label className='itemQuantity'>Quantity: {this.state.quantity}</label>
