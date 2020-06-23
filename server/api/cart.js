@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Cart, User } = require('../db/models')
+const { Cart, User, Product } = require('../db/models')
 
 router.delete('/:productId', async (req, res, next) => {
   try {
@@ -42,6 +42,28 @@ router.post('/', async (req, res, next) => {
 
   }
 })
+
+router.get('/productsByUser/', async (req, res, next) => {
+  try {
+    let productsPurchasedByUser = [];
+    // get user's cart
+    const usersCart = await Cart.findAll({
+      where: {
+        userId: req.session.passport.user
+      }
+    })
+    // gets all products associated with user
+    for (let i = 0; i < usersCart.length; i++) {
+      let productId = usersCart[i].productId
+      const product = await Product.findByPk(productId)
+      productsPurchasedByUser.push(product)
+    }
+    res.json(productsPurchasedByUser)
+  } catch (err) {
+    next(err)
+  }
+})
+
 
 // this gets cart related to user logged in!!
 router.get('/user', async (req, res, next) => {

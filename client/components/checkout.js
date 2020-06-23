@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import  { connect } from 'react-redux'
 import { Cart } from './cart'
 import { fetchCart, removeItemFromCart } from '../store/cart'
 
@@ -54,7 +55,7 @@ export class Checkout extends React.Component {
                         <label>Card number: </label>
                         <br/>
                         <input type="number"/>
-                        
+
                         <label>Expiration date: </label>
                         <br/>
                         <input type="number"/>
@@ -92,4 +93,4 @@ const mapDispatch = dispatch => {
     }
 }
 
-export default Connect(mapState, mapDispatch)(Checkout) 
+export default connect(mapState, mapDispatch)(Checkout)

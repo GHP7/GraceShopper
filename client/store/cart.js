@@ -52,8 +52,8 @@ export const completeCart = products => ({
 // Thunks
 //gets all items in cart associated with logged in user- data is logged and shown in dev tools console, api route works!!
 export const fetchCart = () => async dispatch => {
-  const {data} = await axios.get('/api/products/productsByUser/')
-  console.log('i am in cart store fetchcart', data)
+  const {data} = await axios.get('/api/cart/productsByUser/')
+  // console.log('i am in cart store fetchcart', data)
   dispatch(getCart(data))
   history.push('/cart')
 }
