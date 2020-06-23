@@ -51,7 +51,7 @@ export class SingleProduct extends React.Component {
               <p>Description: {product.description}</p>
             </div>
           </div>
-          <button className='waves-effect waves-light btn' type= 'button' onClick = {this.addToCartFunc}>Add To Cart</button>
+          <button className='waves-effect waves-light btn' type='btn-floating pulse' onClick = {this.addToCartFunc}>Add To Cart</button>
           <div>
           <a href="../products">Not quite what you're looking for?</a>
           </div>
