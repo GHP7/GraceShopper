@@ -12,12 +12,13 @@ export class AllProducts extends React.Component {
     const products = this.props.products;
     return (
       <div className="container">
-        <p className="title">All Products</p>
+        <p className="flow-text">Look at all these in-game awesomeness you could own!</p>
         <div id="all-products-view">
           {products && products.length > 0
             ? products.map((product) => {
                 return (
                   <div className="single-product" key={product.id}>
+                    <img src={product.imageURL} width="200" height="200" />
                     <Link to={`/products/${product.id}`}>
                       <div>
                         <p>{product.name}</p>
