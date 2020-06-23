@@ -12,9 +12,11 @@ export class Cart extends React.Component {
           quantity: 1,
           subTotal:0
         }
-        // this.changeQuantity = this.changeQuantity.bind(this)
         // this.updateSubtotal = this.updateSubtotal.bind(this)
         // this.changeStatus = this.changeStatus.bind(this)
+        this.setSubtotal = this.setSubtotal.bind(this)
+        this.setQuantity = this.setQuantity.bind(this)
+        this.changeQuantity = this.changeQuantity.bind(this)
         this.removeItem = this.removeItem.bind(this)
     }
     componentDidMount() {
@@ -23,12 +25,34 @@ export class Cart extends React.Component {
       // this.props.changeStatus(status)
     }
 
+    setSubtotal() {
+      let subtotalPrice = 0
+      this.props.cart.map(product => {
+        subtotalPrice+= product.price
+      })
+      this.setState = {
+        subTotal: subtotalPrice
+      }
+    }
+
+    setQuantity(change) {
+      let totalItems = 0
+      let arr = this.props.cart
+      for (let i = 0; i < arr.length; i++) {
+        totalItems++
+      }
+      if (change) {
+        totalItems += change
+      }
+      this.setState = {
+        quantity: totalItems
+      }
+    }
     // when user changes quantity input, this.state.quantity updates as well
-    // changeQuantity(event) {
-    //   this.setState = {
-    //     quantity: event.target.value
-    //   }
-    // }
+    changeQuantity(event) {
+      event.preventDefault()
+      this.setQuantity(event.target.value)
+    }
 
     // when each product is mapped and rendered, product price should add to subTotal
     // updateSubtotal(event) {
@@ -70,7 +94,7 @@ export class Cart extends React.Component {
                         <div className='single-product-name'>{product.name}</div>
                         <div className='single-product-description'>{product.description}</div>
                         <div className='single-product-itemsInStock'>{`Items in stock: ${product.itemsInStock}`}</div>
-                        <div className='single-product-price' onRender = {this.updateSubtotal}>{`Price: $${product.price}`}</div>
+                        <div className='single-product-price'>{`Price: $${product.price}`}</div>
                       </div>
                       <div className='remove-item-button'>
                         <button type='submit' onClick={() => {this.removeItem(product.id)}}>Remove Item</button>
@@ -106,8 +130,6 @@ export class Cart extends React.Component {
 // remember to add route and component that redirects to payment page!!!
 
 const mapState = state => {
-  // console.log('I am in mapState console logging the whole state', state)
-  // console.log('I am in mapState Cart', state.cartReducer.currentCart)
   return {
     cart: state.cartReducer.currentCart
   }
