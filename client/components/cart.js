@@ -49,8 +49,7 @@ export class Cart extends React.Component {
       console.log('cartitems', cartItems)
       console.log('props', this.props)
       console.log('this', this)
-      let cartItems = this.props.cart
-      console.log(cartItems)
+      console.log('hi')
       return (<div className='cart'>
         <div id='cart-view'>
           {cartItems && cartItems.length > 0
