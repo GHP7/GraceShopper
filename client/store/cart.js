@@ -65,8 +65,8 @@ let initialState = {
 //   })
 
 // Thunks
-export const fetchCart = (id) => async dispatch => {
-  const {data} = await axios.get(`/api/cart/${id}`)
+export const fetchCart = () => async dispatch => {
+  const {data} = await axios.get('/api/cart/user')
   dispatch(getCart(data))
   history.push('/cart')
 }

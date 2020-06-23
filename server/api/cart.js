@@ -29,15 +29,12 @@ router.put('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   //req.session.passport.user gets the userId that is currently logged in!! console.log works!!
-  // console.log(req.session.passport.user)
-  console.log(req.body.productId)
   try {
     console.log(req.body.productId)
     const newItems = await Cart.create({
-      where: {
         userId: req.session.passport.user,
-        productId: req.body.productId
-      }
+        productId: req.body.productId,
+        quantity: 1
     })
     res.json(newItems)
   } catch (err) {
@@ -46,6 +43,21 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// this gets cart related to user logged in!!
+router.get('/user', async (req, res, next) => {
+  try {
+    const items = await Cart.findAll({
+      where: {
+        userId: req.session.passport.user
+      }
+    })
+    res.json(items)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// this gets all carts in the database!!
 router.get('/', async (req, res, next) => {
   try {
     const items = await Cart.findAll()
