@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {AllProducts} from './all-products'
+import {withRouter, Route, Switch} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -10,7 +12,8 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>Welcome back, {email}!</h3>
+      <p className='flow-text'><a href="/products">Maybe you'd like to continue seeing awesome Animal Crossing animals?</a></p>
     </div>
   )
 }

@@ -250,7 +250,6 @@ async function seed() {
             description: "Cherry is the goth queen you need on your island! Buy her amiibo here.",
             itemsInStock: 1,
             imageURL: 'https://vignette.wikia.nocookie.net/animalcrossing/images/3/3e/Cherry_NH.png/revision/latest?cb=20200524035737'
-
         })
 
             // In-game items
