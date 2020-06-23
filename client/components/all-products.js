@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchProducts } from '../store/product';
-import { Link } from 'react-router-dom';
 
 export class AllProducts extends React.Component {
   componentDidMount() {
@@ -12,6 +11,7 @@ export class AllProducts extends React.Component {
     const products = this.props.products;
     return (
       <div className="container">
+                           
       <div className="row">
         <p className="flow-text">Look at all this in-game awesomeness you could own!</p>
         <div id="all-products-view">
@@ -19,22 +19,28 @@ export class AllProducts extends React.Component {
             ? products.map((product) => {
                 return (
                   <div className="col s3" key={product.id}>
-                    <div className="center-align">
-                   <Link to={`/products/${product.id}`}>
-                    <img src={product.imageURL} className="circle responsive-img" width="200" height="200" />
-                      <div>
-                        <p>{product.name}</p>
-                        <p>Price: {product.price}</p>
-                      </div>
-                    </Link>
-                    <a className="btn-floating pulse"><i className="material-icons">add_shopping_cart</i></a>
-                    </div>
-                  </div>
+                    <div className="card hoverable">
+                    <div className="card-image">
+                    <a href={`/products/${product.id}`}><img src={product.imageURL} className="responsive-img" width="20%" height="20%" /></a>
+          <a className="btn-floating pulse halfway-fab waves-effect waves-light"><i className="material-icons">add_shopping_cart</i></a>
+          </div>
+          <div className="card-content">
+          <span className="card-title">{product.name}</span>
+          <p>Price: {product.price}</p>
+          <p>{`${product.description.slice(0, 28)}...`}</p>
+        </div>
+        <div className="card-action">
+                <a href={`/products/${product.id}`}>{`LEARN MORE ABOUT ${product.name}`}</a>
+        </div>
+                    </div>                    
+                  </div>       
                 );
               })
             : 'LOADING...'}
         </div>
+        
       </div>
+      
       </div>
     );
   }

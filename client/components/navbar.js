@@ -20,11 +20,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                 <li><a href="/about">📙 About Us</a></li>
                 </ul>
               <ul className="right hide-on-med-and-down">
-              <li><a href="/home"><i class="material-icons">account_circle</i></a></li>
+              <li><a href="/home"><i className="material-icons">account_circle</i></a></li>
                 <li><a href="#" onClick={handleClick}>
             Logout
           </a></li>
-                <li><a href="/cart"><i class="material-icons">shopping_cart</i></a></li>
+                <li><a href="/cart"><i className="material-icons">shopping_cart</i></a></li>
               </ul>
             </div>
           </nav>
@@ -46,7 +46,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               <ul className="right hide-on-med-and-down">
                 <li><a href="/login">🔑 Login</a></li>
                 <li><a href="/signup">👋 Sign Up</a></li>
-                <li><a href="/cart"><i class="material-icons">shopping_cart</i></a></li>
+                <li><a href="/cart"><i className="material-icons">shopping_cart</i></a></li>
               </ul>
             </div>
           </nav>
