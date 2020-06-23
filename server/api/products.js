@@ -5,18 +5,18 @@ const {Product, User, Cart} = require('../db/models')
 // [ ] To-do conditionals for found consts
 
 //show all products associated with selected user
-router.get('/productsByUser/', async (req, res, next) => {
-  try {
-    const productsPurchasedByUser = await Product.findAll({
-      where: {
-        id: req.session.passport.user
-      }
-    })
-    res.json(productsPurchasedByUser)
-  } catch (err) {
-    next(err)
-  }
-})
+// router.get('/productsByUser/', async (req, res, next) => {
+//   try {
+//     const productsPurchasedByUser = await Product.findAll({
+//       where: {
+//         id: req.session.passport.user
+//       }
+//     })
+//     res.json(productsPurchasedByUser)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 //display selected product by ID
 router.get('/:id', async (req, res, next) => {
