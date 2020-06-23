@@ -27,18 +27,31 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/:userId', async (req, res, next) => {
   try {
-    const newItem = await Cart.create({
-      status: 'ACTIVE',
-      items: req.body,
-      subTotal: req.body.price
+    const user = await Cart.findAll({
+      where: {
+        userId: req.params.userId
+      }
     })
-    console.log(newItem)
-    res.json(newItem)
+    const newItems = user.create(req.body)
+    res.json(newItems)
   } catch (err) {
     res.send(err)
 
+  }
+})
+
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const items = await Cart.findAll({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    res.json(items)
+  } catch (error) {
+    next(error)
   }
 })
 

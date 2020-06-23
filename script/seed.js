@@ -1,7 +1,7 @@
 'use strict'
 var faker = require('faker')
 const db = require('../server/db')
-const {User, Product, Order} = require('../server/db/models')
+const {User, Product, Order, Cart} = require('../server/db/models')
 
 async function seed() {
   // await db.sync({force: true})
@@ -21,6 +21,16 @@ async function seed() {
         password: faker.internet.password()
       })
     }
+
+    // Order data
+    // for (let i = 0; i < 30; i++) {
+    //   await Order.create({
+    //     status: 'COMPLETED',
+    //     items: [],
+    //     subTotal: 0,
+    //     userId: Math.ceil(Math.random() * 20)
+    //   })
+    // }
 
     // ************************************* //
 
@@ -43,13 +53,52 @@ async function seed() {
         imageURL: faker.image.imageUrl()
       })
 
-      for (let i = 0; i < 1; i++) {
-        await Order.create({
-          status: 'COMPLETED',
-          items: [product],
-          subTotal: product.price
-        })
+      // use nested for loop to add multiple products for each user
+      // Associations between products and order
+      // for (let i = 1; i <= 30; i++) {
+      //   for (let j = 0; j < 1; j++) {
+      //     let randomProduct1 = Math.ceil(Math.random() * 50)
+      //     let randomProduct2 = Math.ceil(Math.random() * 50)
+      //     let randomProduct3 = Math.ceil(Math.random() * 50)
+      //     await Order.create({
+      //       status: 'COMPLETED',
+      //       items: [randomProduct1, randomProduct2, randomProduct3],
+      //       subTotal: 0,
+      //       userId: i
+      //     })
+      //   }
+      // }
+
+      // CART THROUGH TABLE DATA + ASSOCIATIONS
+      for (let i = 1; i <= 30; i++) {
+        for (let j = 0; j < 1; j++) {
+          let randomProduct = Math.ceil(Math.random() * 50)
+          await Cart.create({
+            subtotal: 0,
+            quantity: Math.ceil(Math.random() * 9),
+            userId: i,
+            productId: randomProduct
+          })
+        }
       }
+      // for (let i = 0; i < 30; i++) {
+      //   await Cart.create({ 
+      //     status: 'ACTIVE',
+      //     items: 
+      //     subtotal: 
+      //     productId:
+      //     userId: 
+      //   })
+      // }
+
+      // for (let i = 0; i < 1; i++) {
+      //   await Order.create({
+      //     status: 'COMPLETED',
+      //     items: [product],
+      //     subTotal: product.price,
+      //     userId: Math.ceil(Math.random() * 20)
+      //   })
+      // }
     }
 
   } catch (err) {

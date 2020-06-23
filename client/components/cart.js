@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-// import { AllProducts } from './all-products';
+import { AllProducts } from './all-products';
 import { fetchCart, removeItemFromCart } from '../store/cart'
 
 export class Cart extends React.Component {
@@ -17,7 +17,7 @@ export class Cart extends React.Component {
     }
     componentDidMount() {
       this.props.fetchCart()
-      this.props.removeItemFromCart(this.products.items.id)
+      this.props.removeItemFromCart(this.cart.items.id)
       this.props.changeStatus(status)
     }
 
@@ -46,12 +46,16 @@ export class Cart extends React.Component {
       let tax = this.state.subTotal* 0.9
       let totalPrice = this.state.subTotal + tax
       let cartItems = this.props.fetchCart()
+      console.log('cartitems', cartItems)
+      console.log('props', this.props)
+      console.log('this', this)
       return (<div className='cart'>
         <div id='cart-view'>
-          {cartItems.map(product => {
+          {cartItems && cartItems.length > 0
+            ? cartItems.map(product => {
             return (
               <div className='single-cart-product' key={product.id}>
-                  <Link to={`/products/${product.id}`}>
+                  <Link to={`/products/${product.productId}`}>
                       <div className='single-product'>
                         <img src={product.imageURL}></img>
                       </div>
@@ -71,7 +75,7 @@ export class Cart extends React.Component {
                   </div>
               </div>
             )
-          })}
+          }) : 'No items in cart' }
           <div className='cart-subtotal'>
           {this.state.subTotal}
           </div>
@@ -93,9 +97,8 @@ export class Cart extends React.Component {
 // remember to add route and component that redirects to payment page!!!
 
 const mapState = state => {
-  console.log(state)
   return {
-    cart: state.cartReducer
+    cart: state.cartReducer.currentCart
   }
 }
 
