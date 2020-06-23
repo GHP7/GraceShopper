@@ -52,8 +52,8 @@ export const completeCart = products => ({
 // Thunks
 //gets all items in cart associated with logged in user- data is logged and shown in dev tools console, api route works!!
 export const fetchCart = () => async dispatch => {
-  const {data} = await axios.get('/api/products/productsByUser/')
-  console.log('i am in cart store fetchcart', data)
+  const {data} = await axios.get('/api/cart/productsByUser/')
+  // console.log('i am in cart store fetchcart', data)
   dispatch(getCart(data))
   history.push('/cart')
 }
@@ -70,8 +70,17 @@ export const addItemToCart = (productId) => async dispatch => {
 
 // need to write reducer for this
 export const removeItemFromCart = (id) => async dispatch => {
-  const {data} = await axios.delete(`/api/cart/${id}`)
-  dispatch(removeFromCart(data));
+  try {
+    console.log('i am in cart store- remove thunk', id)
+    const {data} = await axios.delete('/api/cart/user', {
+      data: {
+        productId: id
+      }
+    })
+    dispatch(removeFromCart(data));
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export const emptyCart = () => async dispatch => {

@@ -63,6 +63,7 @@ async function seed() {
             name: 'Roald',
             price: 1500000,
             description: 'Roald the penguin is the buff heartthrob your tropical island needs. Buy his amiibo here!',
+
             itemsInStock: 3,
             imageURL: 'https://pbs.twimg.com/media/ERPUXFDVUAEt2-O.jpg'
         })
@@ -249,6 +250,7 @@ async function seed() {
             description: "Cherry is the goth queen you need on your island! Buy her amiibo here.",
             itemsInStock: 1,
             imageURL: 'https://vignette.wikia.nocookie.net/animalcrossing/images/3/3e/Cherry_NH.png/revision/latest?cb=20200524035737'
+
         })
 
             // In-game items

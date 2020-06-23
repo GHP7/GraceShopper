@@ -34,7 +34,6 @@ router.post('/', async (req, res, next) => {
       items: req.body,
       subTotal: req.body.price
     })
-    console.log(newItem)
     res.json(newItem)
   } catch (err) {
     res.send(err)
