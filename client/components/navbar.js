@@ -12,16 +12,19 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links after you log in */}
           <nav>
             <div className="nav-wrapper">
-              <a href="/home" className="brand-logo center">🌱boop🌱</a>
+              <a href="/home" className="brand-logo center">🌱 boop 🌱</a>
               <ul className="left hide-on-med-and-down">
-                <li><a href="/products">🛍Shop</a></li>
-                <li><a href="/about">About Us</a></li>
+                <li><a href="/products">🛍 Shop</a></li>
+                <li><a href="/sale">🏷️ On Sale</a></li>
+                <li><a href="/exclusive">✨Exclusives for Members</a></li>
+                <li><a href="/about">📙 About Us</a></li>
                 </ul>
               <ul className="right hide-on-med-and-down">
+              <li><a href="/home"><i class="material-icons">account_circle</i></a></li>
                 <li><a href="#" onClick={handleClick}>
             Logout
           </a></li>
-                <li><a href="/cart">🛒Cart</a></li>
+                <li><a href="/cart"><i class="material-icons">shopping_cart</i></a></li>
               </ul>
             </div>
           </nav>
@@ -37,12 +40,13 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               <a href="/home" className="brand-logo center">🌱 boop 🌱</a>
               <ul className="left hide-on-med-and-down">
                 <li><a href="/products">🛍Shop</a></li>
-                <li><a href="/about">About Us</a></li>
+                <li><a href="/sale">🏷️ On Sale</a></li>
+                <li><a href="/about">📙 About Us</a></li>
                 </ul>
               <ul className="right hide-on-med-and-down">
-                <li><a href="/login">🔑Login</a></li>
-                <li><a href="/signup">👋Sign Up</a></li>
-                <li><a href="/cart">🛒Cart</a></li>
+                <li><a href="/login">🔑 Login</a></li>
+                <li><a href="/signup">👋 Sign Up</a></li>
+                <li><a href="/cart"><i class="material-icons">shopping_cart</i></a></li>
               </ul>
             </div>
           </nav>

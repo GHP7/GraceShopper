@@ -27,7 +27,7 @@ export class AllProducts extends React.Component {
                         <p>Price: {product.price}</p>
                       </div>
                     </Link>
-                    <a className="btn-floating pulse"><i className="material-icons">shopping_cart</i></a>
+                    <a className="btn-floating pulse"><i className="material-icons">add_shopping_cart</i></a>
                     </div>
                   </div>
                 );
