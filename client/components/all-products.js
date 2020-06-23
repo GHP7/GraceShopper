@@ -22,7 +22,7 @@ export class AllProducts extends React.Component {
                     <img src={product.imageURL} width="200" height="200" />
                       <div>
                         <p>{product.name}</p>
-                        <p>{product.price}</p>
+                        <p>Price: {product.price}</p>
                         <img src={product.imageUrl} width='20%'/>
                       </div>
                     </Link>

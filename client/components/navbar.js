@@ -8,10 +8,10 @@ import {logout} from '../store'
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
       {isLoggedIn ? (
-         <div class="navbar-fixed">
+         <div className="navbar-fixed">
           {/* The navbar will show these links after you log in */}
           <nav>
-            <div class="nav-wrapper">
+            <div className="nav-wrapper">
               <a href="#!" className="brand-logo center">BOOP</a>
               <ul className="left hide-on-med-and-down">
                 <li><a href="/products">🛍Shop</a></li>
@@ -29,10 +29,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/cart">Cart</Link> */}
         </div>
       ) : (
-        <div class="navbar-fixed">
+        <div className="navbar-fixed">
           {/* The navbar will show these links before you log in */}
           <nav>
-            <div class="nav-wrapper">
+            <div className="nav-wrapper">
               <a href="#!" className="brand-logo center">BOOP</a>
               <ul className="left hide-on-med-and-down">
                 <li><a href="/products">🛍Shop</a></li>

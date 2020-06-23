@@ -31,7 +31,7 @@ export const me = () => async dispatch => {
 }
 
 export const auth = (email, password, method) => async dispatch => {
-  let res
+  let res;
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
   } catch (authError) {
@@ -40,7 +40,13 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/')
+
+    if (localStorage.getItem('cart')) {
+      const cart = JSON.parse(window.localStorage.getItem('cart'))
+      await axios.post('/api/cart', { cart })
+    }
+
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
@@ -51,6 +57,11 @@ export const logout = () => async dispatch => {
     await axios.post('/auth/logout')
     dispatch(removeUser())
     history.push('/login')
+
+    if (window.localStorage.getItem('cart')) {
+      window.localStorage.removeITem('cart')
+    }
+
   } catch (err) {
     console.error(err)
   }
