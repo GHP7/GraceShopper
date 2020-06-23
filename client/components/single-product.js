@@ -53,10 +53,15 @@ export class SingleProduct extends React.Component {
           <div>
             <hr />
           <a href="../products">Not quite what you're looking for?</a>
+          
           </div>
+          
             </div>
+            
           </div>
+          
             </div>
+            
     )
   }
 }

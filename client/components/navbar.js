@@ -12,9 +12,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links after you log in */}
           <nav>
             <div className="nav-wrapper">
-              <a href="/home" className="brand-logo center">BOOP</a>
+              <a href="/home" className="brand-logo center">🌱boop🌱</a>
               <ul className="left hide-on-med-and-down">
                 <li><a href="/products">🛍Shop</a></li>
+                <li><a href="/about">About Us</a></li>
                 </ul>
               <ul className="right hide-on-med-and-down">
                 <li><a href="#" onClick={handleClick}>
@@ -33,9 +34,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           {/* The navbar will show these links before you log in */}
           <nav>
             <div className="nav-wrapper">
-              <a href="/home" className="brand-logo center">BOOP</a>
+              <a href="/home" className="brand-logo center">🌱 boop 🌱</a>
               <ul className="left hide-on-med-and-down">
                 <li><a href="/products">🛍Shop</a></li>
+                <li><a href="/about">About Us</a></li>
                 </ul>
               <ul className="right hide-on-med-and-down">
                 <li><a href="/login">🔑Login</a></li>
