@@ -45,11 +45,11 @@ export class Cart extends React.Component {
     render() {
       let tax = this.state.subTotal* 0.9
       let totalPrice = this.state.subTotal + tax
-      let cartItems = this.props.fetchCart()
-      console.log('cartitems', cartItems)
-      console.log('props', this.props)
-      console.log('this', this)
-      console.log('hi')
+      // let cartItems = this.props.fetchCart()
+      // console.log('props', this.props)
+      // console.log('this', this)
+      let cartItems = this.props.cart
+      console.log('i am in cart comp render', cartItems)
       return (<div className='cart'>
         <div id='cart-view'>
           {cartItems && cartItems.length > 0
@@ -98,6 +98,7 @@ export class Cart extends React.Component {
 // remember to add route and component that redirects to payment page!!!
 
 const mapState = state => {
+  console.log('I am in mapState Cart', state.cartReducer)
   return {
     cart: state.cartReducer.currentCart
   }

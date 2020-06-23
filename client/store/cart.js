@@ -48,32 +48,24 @@ export const completeCart = products => ({
   products
 })
 
-// INITIAL STATE
-// checking if we have a localStorage cart already
-// otherwise assigning cart to an empty array
-let initialState = {
-  currentCart: [],
-}
-
-// LOCAL STORAGE
-// localStorage.getItem('cart')
-//   ? (currentCart = JSON.parse(localStorage.getItem('cart')))
-//   : (currentCart = {
-//     status: 'active',
-//     items: [],
-//     subTotal: 0
-//   })
 
 // Thunks
-export const fetchCart = (id) => async dispatch => {
-  const {data} = await axios.get(`/api/cart/${id}`)
+//gets all items in cart associated with logged in user- data is logged and shown in dev tools console, api route works!!
+export const fetchCart = () => async dispatch => {
+  const {data} = await axios.get('/api/products/productsByUser/')
+  console.log('i am in cart store fetchcart', data)
   dispatch(getCart(data))
   history.push('/cart')
 }
 
-export const addItemToCart = (id, productId) => async dispatch => {
-  const {data} = await axios.post(`/api/cart/${id}`, productId)
-  dispatch(addToCart(data))
+// this works!! - used in single product component
+export const addItemToCart = (productId) => async dispatch => {
+  try {
+    const {data} = await axios.post('/api/cart/', productId)
+    dispatch(addToCart(data))
+  } catch (error) {
+    console.log('add to cart button is broken!', error)
+  }
 }
 
 // need to write reducer for this
@@ -101,17 +93,33 @@ export const checkoutCart = async (products) => {
 
 // *** REMINDER: FINISH WRITING REMAINDER OF THUNKS
 
+// INITIAL STATE
+// checking if we have a localStorage cart already
+// otherwise assigning cart to an empty array
+let initialState = {
+  currentCart: [],
+}
+
+// LOCAL STORAGE
+// localStorage.getItem('cart')
+//   ? (currentCart = JSON.parse(localStorage.getItem('cart')))
+//   : (currentCart = {
+//     status: 'active',
+//     items: [],
+//     subTotal: 0
+//   })
+
 // REDUCIN'
 
 const cartReducer = (state = initialState, action) => {
   // let products, productId
   switch (action.type) {
     case GET_CART:
-      return {...state, currentCart: action.cart}
+      return { ...state, currentCart: action.cart}
     case CLEAR_CART:
       localStorage.setItem('cart', [])
       return { ...state, currentCart: { subTotal: 0, quantity: 0 }}
-    // case ADD_TO_CART: 
+    // case ADD_TO_CART:
     //   return { ...state, currentCart: { }}
       case UPDATE_STATUS:
       return {...state,

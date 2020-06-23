@@ -82,12 +82,12 @@ async function seed() {
         }
       }
       // for (let i = 0; i < 30; i++) {
-      //   await Cart.create({ 
+      //   await Cart.create({
       //     status: 'ACTIVE',
-      //     items: 
-      //     subtotal: 
+      //     items:
+      //     subtotal:
       //     productId:
-      //     userId: 
+      //     userId:
       //   })
       // }
 

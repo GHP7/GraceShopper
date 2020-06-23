@@ -93,6 +93,15 @@ export const deleteProduct = id => async dispatch => {
   dispatch(removeSingleProduct(data))
 }
 
+// export const fetchUser = id => async dispatch => {
+//   try {
+//     const {data} = await axios.get(`/api/products/${id}`)
+//     dispatch(gotSingleProduct(data))
+//   } catch (error) {
+//     console(error)
+//   }
+// }
+
 // REDUCER
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
