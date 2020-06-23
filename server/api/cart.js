@@ -1,20 +1,6 @@
 const router = require('express').Router()
 const { Cart, User, Product } = require('../db/models')
 
-router.delete('/:productId', async (req, res, next) => {
-  try {
-    const itemToRemove = await Cart.findAll({
-      where: {
-        items: req.params.productId
-      }
-    })
-    const removeItem = await itemToRemove.destroy()
-    res.json(`${removeItem} has been removed from your cart.`)
-  } catch (err) {
-    next(err)
-  }
-})
-
 router.put('/', async (req, res, next) => {
   try {
     const updatedItem = await Cart.update({
@@ -30,7 +16,6 @@ router.put('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   //req.session.passport.user gets the userId that is currently logged in!! console.log works!!
   try {
-    console.log(req.body.productId)
     const newItems = await Cart.create({
         userId: req.session.passport.user,
         productId: req.body.productId,
@@ -76,6 +61,21 @@ router.get('/user', async (req, res, next) => {
     res.json(items)
   } catch (error) {
     next(error)
+  }
+})
+
+router.delete('/user', async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const itemToRemove = await Cart.destroy({
+      where: {
+        userId: req.session.passport.user,
+        productId: req.body.productId
+      }
+    })
+    res.json(`${itemToRemove} has been removed from your cart.`)
+  } catch (err) {
+    next(err)
   }
 })
 

@@ -70,8 +70,17 @@ export const addItemToCart = (productId) => async dispatch => {
 
 // need to write reducer for this
 export const removeItemFromCart = (id) => async dispatch => {
-  const {data} = await axios.delete(`/api/cart/${id}`)
-  dispatch(removeFromCart(data));
+  try {
+    console.log('i am in cart store- remove thunk', id)
+    const {data} = await axios.delete('/api/cart/user', {
+      data: {
+        productId: id
+      }
+    })
+    dispatch(removeFromCart(data));
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export const emptyCart = () => async dispatch => {
