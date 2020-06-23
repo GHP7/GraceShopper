@@ -11,7 +11,7 @@ export class AllProducts extends React.Component {
   render() {
     const products = this.props.products;
     return (
-      <div class="container">
+      <div className="container">
       <div className="row">
         <p className="flow-text">Look at all this in-game awesomeness you could own!</p>
         <div id="all-products-view">
@@ -32,7 +32,7 @@ export class AllProducts extends React.Component {
                   </div>
                 );
               })
-            : 'No Products'}
+            : 'LOADING...'}
         </div>
       </div>
       </div>

@@ -41,19 +41,20 @@ export class SingleProduct extends React.Component {
               ''
             )}
           </div> */}
-          <h4 className="title">Product details</h4>
-          <div id="single-product-view">
+          <div className="center-align">
+              <h4 className="title">Product Deets</h4>
               <div key={product.id}>
               <h5>{product.name}</h5>
               <img src={product.imageURL} width="200" height="200" />
               <p>Price: ${product.price}</p>
               {product.itemsInStock < 20 ? <p>Hurry! Only {product.itemsInStock} left in stock!</p> : ''}
               <p>Description: {product.description}</p>
-            </div>
-          </div>
-          <button className='waves-effect waves-light btn' type='btn-floating pulse' onClick = {this.addToCartFunc}>Add To Cart</button>
+              <button className='waves-effect waves-light btn' type='btn-floating pulse' onClick = {this.addToCartFunc}>Add To Cart</button>
           <div>
+            <hr />
           <a href="../products">Not quite what you're looking for?</a>
+          </div>
+            </div>
           </div>
             </div>
     )
