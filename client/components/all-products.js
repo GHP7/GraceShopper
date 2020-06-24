@@ -11,13 +11,13 @@ export class AllProducts extends React.Component {
     const products = this.props.products;
     return (
       <div className="container">
-      <div className="row grid">
+      <div className="row">
         <p className="flow-text">Look at all this in-game awesomeness you could own!</p>
         <div id="all-products-view">
           {products && products.length > 0
             ? products.map((product) => {
                 return (
-                  <div className="col s3 cell" key={product.id}>
+                  <div className="col s3" key={product.id}>
                     <div className="card hoverable">
                     <div className="card-image">
                     <a href={`/products/${product.id}`}><img src={product.imageURL} className="responsive-img" height="50%" /></a>

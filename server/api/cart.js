@@ -1,12 +1,16 @@
 const router = require('express').Router()
 const { Cart, User, Product } = require('../db/models')
 
-router.put('/', async (req, res, next) => {
+router.put('/user', async (req, res, next) => {
   try {
+    console.log(req.body)
     const updatedItem = await Cart.update({
-      status: 'ACTIVE',
-      items: req.body
-    })
+      quantity: req.body.quantity,
+      subtotal: req.body.subtotal,
+    }, {where: {
+      productId: req.body.productId
+    }})
+    console.log(updatedItem)
     res.json(updatedItem)
   } catch (err) {
     next(err)

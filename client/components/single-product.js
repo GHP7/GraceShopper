@@ -50,7 +50,7 @@ export class SingleProduct extends React.Component {
               <h5>{product.name}</h5>
               <img src={product.imageURL} width="200" height="200" />
               <p>Price: ${product.price}</p>
-              {product.itemsInStock < 20 ? <p>Hurry! Only {product.itemsInStock} left in stock!</p> : ''}
+              {product.itemsInStock < 2 ? <p>Hurry! Only {product.itemsInStock} left in stock!</p> : ''}
               <p>Description: {product.description}</p>
               <button className='waves-effect waves-light btn' type='btn-floating pulse' onClick = {this.addToCartFunc}>Add To Cart</button>
           <div>

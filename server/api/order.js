@@ -30,9 +30,9 @@ router.put('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const newItem = await Order.create({
-      status: 'ACTIVE',
-      items: req.body,
-      subTotal: req.body.price
+      status: 'COMPLETED',
+      items: req.body.items,
+      paymentInformation: req.body.total
     })
     res.json(newItem)
   } catch (err) {
