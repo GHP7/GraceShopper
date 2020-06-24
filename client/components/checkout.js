@@ -8,7 +8,12 @@ export class Checkout extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            paymentInformation: {}
+            paymentInformation: {
+              cardHolder: '',
+              cardNumber: '',
+              cardExpiration: '',
+              CVV: ''
+            }
         }
         this.changeHandler = this.changeHandler.bind(this)
         this.submitHandler = this.submitHandler.bind(this)
@@ -16,9 +21,7 @@ export class Checkout extends React.Component {
 
     changeHandler(event) {
       this.setState({
-        paymentInformation: {
-          [event.target.name]: event.target.value
-        }
+        [event.target.name]: event.target.value
       })
     }
 
@@ -42,19 +45,22 @@ export class Checkout extends React.Component {
                   <form onSubmit={this.submitHandler}>
                     <label>Name on card: </label>
                     <br/>
-                    <input type="text" name= 'cardHolder' onChange = {this.changeHandler}/>
+                    <input type="text"  name = 'cardHodler' value= {this.state.paymentInformation.cardHolder} onChange = {this.changeHandler}/>
 
                     <label>Card number: </label>
                     <br/>
-                    <input type="number" name= 'cardNumber' onChange = {this.changeHandler}/>
+                    <input type="number" name = 'cardNumber' value= {this.state.paymentInformation.cardNumber} onChange = {this.changeHandler}/>
 
                     <label>Expiration date: </label>
                     <br/>
-                    <input type="number" name= 'cardExpiration' onChange = {this.changeHandler}/>
+                    <input type="number" name= 'cardExpiration' value= {this.state.paymentInformation.cardExpiration} onChange = {this.changeHandler}/>
 
                     <label>CVV: </label>
                     <br/>
-                    <input type="number" name= 'CVV' onChange = {this.changeHandler}/>
+                    <input type="number" name= 'CVV' value= {this.state.paymentInformation.CVV} onChange = {this.changeHandler}/>
+                    <div className='submitPaymentContainer'>
+                    <Link className='submitPaymentButton' to='/' type= 'submit' onClick={this.submitHandler}>Submit Payment</Link>
+                    </div>
                   </form>
                 </div>
                 <div className='priceBox'>
@@ -62,10 +68,6 @@ export class Checkout extends React.Component {
                     <div className='orderSubtotal'>{`Subtotal: $${this.props.subTotal}`}</div>
                     <div className='orderTax'>{`Tax: $${tax}`}</div>
                     <div className='orderTotalPrice'>{`Total: $${totalPrice}`}</div>
-                </div>
-
-                <div className='submitPaymentContainer'>
-                    <Link className='submitPaymentButton' to='/' onClick={this.updateStatus}>Submit Payment</Link>
                 </div>
           </div>
         )
@@ -81,8 +83,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-      fetchCart: () => dispatch(fetchCart()),
-      changeStatus: (status) => dispatch(changeStatus(status))
+      fetchCart: () => dispatch(fetchCart())
     }
 }
 
