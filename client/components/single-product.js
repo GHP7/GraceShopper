@@ -2,11 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/product'
 import { addItemToCart } from '../store/cart'
+import M from 'materialize-css'
 
 export class SingleProduct extends React.Component {
   constructor() {
     super()
     this.addToCartFunc = this.addToCartFunc.bind(this)
+    // this.M = window.M;
   }
   componentDidMount() {
     this.props.getSingleProduct(this.props.match.params.id)
@@ -14,6 +16,7 @@ export class SingleProduct extends React.Component {
   }
 
   addToCartFunc() {
+    M.toast({html: 'Added to cart!', classes: 'rounded'})
     this.props.addItemToCart({
       // name: this.props.product.name,
       // description: this.props.product.description,
@@ -42,7 +45,7 @@ export class SingleProduct extends React.Component {
             )}
           </div> */}
           <div className="center-align">
-              <h4 className="title">Product Deets</h4>
+              <h4 className="title">Soon to be yours...</h4>
               <div key={product.id}>
               <h5>{product.name}</h5>
               <img src={product.imageURL} width="200" height="200" />
