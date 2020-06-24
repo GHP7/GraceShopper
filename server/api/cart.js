@@ -3,10 +3,14 @@ const { Cart, User, Product } = require('../db/models')
 
 router.put('/user', async (req, res, next) => {
   try {
+    console.log(req.body)
     const updatedItem = await Cart.update({
       quantity: req.body.quantity,
-      subtotal: req.body.subtotal
-    })
+      subtotal: req.body.subtotal,
+    }, {where: {
+      productId: req.body.productId
+    }})
+    console.log(updatedItem)
     res.json(updatedItem)
   } catch (err) {
     next(err)
