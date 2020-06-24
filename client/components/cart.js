@@ -6,7 +6,6 @@ import { fetchCart, removeItemFromCart, updateQuantityAmount} from '../store/car
 export class Cart extends React.Component {
     constructor(props) {
         super(props)
-        // this.updateSubtotal = this.updateSubtotal.bind(this)
         this.updateQuantity = this.updateQuantity.bind(this)
         this.removeItem = this.removeItem.bind(this)
     }
@@ -14,11 +13,12 @@ export class Cart extends React.Component {
       this.props.fetchCart()
     }
 
-    // updateQuantity(event, ) {
-    //   event.preventDefault()
-    //   // console.log(event.target.value)
-    //   this.props.updateQuantityAmount(event.target.value)
-    // }
+    updateQuantity(e, price, id) {
+      event.preventDefault()
+      console.log(id)
+      let newPrice = price * e
+      this.props.updateQuantityAmount(e, newPrice, id)
+    }
 
     removeItem(productId) {
       this.props.removeItemFromCart(productId)
@@ -53,8 +53,8 @@ export class Cart extends React.Component {
                       </div>
                       <div className='update-quantity-button'>
                         <form onSubmit={this.updateQuantity}>
-                          <label className='itemQuantity'>Quantity: {this.props.quantity}</label>
-                          <input type='number' onChange={() => {this.props.updateQuantityAmount(event.target.value, product.price)}} />
+                          <label className='itemQuantity'>Update Quantity: {this.props.quantity}</label>
+                          <input type='number' onChange={() => {this.updateQuantity(event.target.value, product.price, product.id)}} />
                           {/* <input type='Submit' value="Change Quantity"/> */}
                         </form>
                       </div>
@@ -65,14 +65,14 @@ export class Cart extends React.Component {
           )
         ) : 'No items in cart' }
         <div className='cart-subtotal'>
-         {`Subtotal: ${this.props.subTotal}`}
+         {`Subtotal: $${this.props.subTotal}`}
         </div>
         </div>
         <div className='cart-summary'>
           <div className='summary-title'>Summary</div>
-          <div className='summary-subtotal'>{`Subtotal: ${this.props.subTotal}`}</div>
+          <div className='summary-subtotal'>{`Subtotal: $${this.props.subTotal}`}</div>
           <div className='summary-tax'>{`Tax: ${tax}`}</div>
-          <div className='summary-total-price'>{`Total Price: ${totalPrice}`}</div>
+          <div className='summary-total-price'>{`Total Price: $${totalPrice}`}</div>
         </div>
         <div className='checkout'>
           <Link className='checkout-button'to = '/checkout'>Proceed to Check Out</Link>
@@ -87,8 +87,7 @@ export class Cart extends React.Component {
 const mapState = state => {
   return {
     cart: state.cartReducer.currentCart,
-    subTotal: state.cartReducer.subTotal,
-    quantity: state.cartReducer.quantity
+    subTotal: state.cartReducer.subTotal
   }
 }
 
@@ -96,7 +95,7 @@ const mapDispatch = dispatch => {
   return {
     fetchCart: () => dispatch(fetchCart()),
     removeItemFromCart: (id) => dispatch(removeItemFromCart(id)),
-    updateQuantityAmount: (num, price) => dispatch((updateQuantityAmount(num, price)))
+    updateQuantityAmount: (num, price, id) => dispatch((updateQuantityAmount(num, price, id)))
   }
 }
 

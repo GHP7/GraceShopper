@@ -39,9 +39,11 @@ export const removeFromCart = product => ({
 //   product
 // })
 
-export const updateQuantity = num => ({
+export const updateQuantity = (num, price, id) => ({
   type: UPDATE_NUM,
-  num
+  num,
+  price,
+  id
 })
 
 export const completeCart = products => ({
@@ -59,9 +61,15 @@ export const fetchCart = () => async dispatch => {
   history.push('/cart')
 }
 
-export const updateQuantityAmount = (num) => dispatch => {
-  dispatch(updateQuantity(num))
-  console.log(updateQuantity(num))
+export const updateQuantityAmount = (num, price, id) => async dispatch => {
+  console.log(num, price, id)
+  const {data} = await axios.put("/api/cart/user", {
+    quantity: num,
+    subtotal: price,
+    productId: id
+  })
+  dispatch(updateQuantity(num, price, id))
+  // console.log(updateQuantity(num, price, id))
   history.push('/cart')
 }
 
@@ -110,8 +118,7 @@ export const checkoutCart = async (products) => {
 // otherwise assigning cart to an empty array
 let initialState = {
   currentCart: [],
-  subTotal: 0,
-  quantity: 1
+  subTotal: 0
 }
 
 // LOCAL STORAGE
@@ -148,9 +155,9 @@ const cartReducer = (state = initialState, action) => {
       return { ...state, currentCart: { subTotal: 0, quantity: 0 }}
     // case ADD_TO_CART:
     //   return { ...state, currentCart: { }}
-      case UPDATE_NUM:
+      case UPDATE_NUM: {
       return {...state,
-        quantity: action.num
+        subTotal: state.subTotal + action.price}
       }
 
     // case ADD_TO_CART:
