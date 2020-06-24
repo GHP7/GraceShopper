@@ -19,7 +19,6 @@ export class Checkout extends React.Component {
         this.submitHandler = this.submitHandler.bind(this)
     }
 
-    // might need to change this part
     changeHandler(event) {
       this.setState({
         [event.target.name]: event.target.value
