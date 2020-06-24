@@ -1,5 +1,6 @@
 import history from '../history'
 import axios from 'axios'
+import { updatedQuantity } from './product'
 // history needed to keep cart refreshing
 // no axios import since no database changes are happening until checkout
 
@@ -7,7 +8,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
-const UPDATE_STATUS = 'UPDATE_STATUS'
+const UPDATE_NUM = 'UPDATE_NUM'
 const COMPLETE_CART  = 'COMPLETE_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 // const DELETE_FROM_CART = 'DELETE_FROM_CART'
@@ -38,9 +39,9 @@ export const removeFromCart = product => ({
 //   product
 // })
 
-export const updateStatus = status => ({
-  type: UPDATE_STATUS,
-  status
+export const updateQuantity = num => ({
+  type: UPDATE_NUM,
+  num
 })
 
 export const completeCart = products => ({
@@ -55,6 +56,12 @@ export const fetchCart = () => async dispatch => {
   const {data} = await axios.get('/api/cart/productsByUser/')
   // console.log('i am in cart store fetchcart', data)
   dispatch(getCart(data))
+  history.push('/cart')
+}
+
+export const updateQuantityAmount = (num) => dispatch => {
+  dispatch(updateQuantity(num))
+  console.log(updateQuantity(num))
   history.push('/cart')
 }
 
@@ -92,10 +99,6 @@ export const emptyCart = () => async dispatch => {
   dispatch(clearCart(data))
 }
 
-export const changeStatus = (status) => async dispatch => {
-  await dispatch(updateStatus(status))
-}
-
 export const checkoutCart = async (products) => {
   await axios.post('/api/order', products)
 }
@@ -107,6 +110,8 @@ export const checkoutCart = async (products) => {
 // otherwise assigning cart to an empty array
 let initialState = {
   currentCart: [],
+  subTotal: 0,
+  quantity: 1
 }
 
 // LOCAL STORAGE
@@ -123,16 +128,29 @@ let initialState = {
 const cartReducer = (state = initialState, action) => {
   // let products, productId
   switch (action.type) {
-    case GET_CART:
-      return { ...state, currentCart: action.cart}
+    case GET_CART: {
+      let subtotalPrice = 0
+      action.cart.map(product => {
+        if (product) {
+          subtotalPrice+= product.price
+        }
+      })
+      // let totalItems = 0
+      // for (let i = 0; i < action.cart.length; i++) {
+      //   if(action.cart[i]) {
+      //     totalItems++
+      //   }
+      // }
+      return { ...state, currentCart: action.cart, subTotal: subtotalPrice}
+    }
     case CLEAR_CART:
       localStorage.setItem('cart', [])
       return { ...state, currentCart: { subTotal: 0, quantity: 0 }}
     // case ADD_TO_CART:
     //   return { ...state, currentCart: { }}
-      case UPDATE_STATUS:
+      case UPDATE_NUM:
       return {...state,
-        status: action.status
+        quantity: action.num
       }
 
     // case ADD_TO_CART:

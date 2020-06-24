@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import  { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Cart } from './cart'
 import { fetchCart, removeItemFromCart } from '../store/cart'
 
@@ -74,7 +75,7 @@ export class Checkout extends React.Component {
                 </div>
 
                 <div className='submitPaymentContainer'>
-                    <Link className='submitPaymentButton' onClick={this.updateStatus}>Submit Payment</Link>
+                    <Link className='submitPaymentButton' to='/' onClick={this.updateStatus}>Submit Payment</Link>
                 </div>
             </div>
         )
